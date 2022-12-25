@@ -1,21 +1,6 @@
 #include "utils.h"
 #include "Q2.h"
 
-void skipLine(FILE* fp) {
-	char current_char = fgetc(fp);
-
-	while (current_char != '\n')
-		current_char = fgetc(fp);
-}
-
-void skipCommentLines(FILE* fp, char current_char) {
-	while (current_char == '#') {
-		skipLine(fp);
-		current_char = fgetc(fp);
-	}
-
-}
-
 void readHeaderFromPGM(FILE* fp, int* cols, int* rows, int* depth) {
 	char current_char;
 
@@ -60,10 +45,32 @@ void readHeaderFromPGM(FILE* fp, int* cols, int* rows, int* depth) {
 	}
 }
 
+void readDataFromPGM(FILE* fp, GRAY_IMAGE* gray_image) {
+	gray_image->pixels = (char**)malloc(sizeof(char*) * gray_image->rows);
+	
+	if (!(gray_image->pixels))
+		memoryAllocFailed();
+
+	for (int i = 0; i < gray_image->rows; i++) {
+		gray_image->pixels[i] = (char*)malloc(sizeof(char) * gray_image->cols);
+
+		if (!(gray_image->pixels[i]))
+			memoryAllocFailed();
+	}
+
+	for (int i = 0; i < gray_image->rows; i++)
+		for (int j = 0; j < gray_image->cols; j++)
+			fscanf(fp, "%d", gray_image->pixels[i] + j);
+}
+
 GRAY_IMAGE* readPGM(char* fname) {
 	FILE* fp = fopen(fname, "r");
 	char current_char;
 	int cols, rows, depth;
+	GRAY_IMAGE *gray_image = (GRAY_IMAGE*)malloc(sizeof(GRAY_IMAGE));
+
+	if (!gray_image)
+		memoryAllocFailed();
 
 	if (!fp) {
 		printf("Couldn't read file!\n");
@@ -72,5 +79,10 @@ GRAY_IMAGE* readPGM(char* fname) {
 
 	readHeaderFromPGM(fp, &cols, &rows, &depth);	
 
-	printf("%d %d %d", cols, rows, depth);
+	gray_image->cols = cols;
+	gray_image->rows = rows;
+
+	readDataFromPGM(fp, gray_image);
+
+	return gray_image;
 }
