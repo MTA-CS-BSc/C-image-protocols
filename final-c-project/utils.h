@@ -42,4 +42,9 @@ typedef struct segment {
 	TNODE* root;
 } SEGMENT;
 
+void memoryAllocFailed();
+void printMatrix(char**, int, int);
+void skipLine(FILE*);
+void skipCommentLines(FILE*, char);
+
 #endif
