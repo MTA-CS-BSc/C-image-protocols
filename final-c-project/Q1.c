@@ -1,20 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-
-typedef struct rgb {
-	unsigned char r, g, b;
-}RGB;
-
-typedef struct colorImage {
-	unsigned short rows, cols;
-	RGB** pixels;
-}COLOR_IMAGE;
-
-typedef int BOOL;
-#define FALSE 0
-#define TRUE 1
+#include "utils.h"
 
 COLOR_IMAGE* readPPM(char* fname); 
 RGB createPixel(char* line, int* mone); //fun to create one pixel(RGB) from stringInput line
@@ -92,7 +76,7 @@ COLOR_IMAGE* readPPM(char* fname)
 	int monePow = 0;
 	int value = 0;
 	RGB** pixlesArr;
-	BOOL endOfInput = FALSE;
+	bool endOfInput = false;
 	fp = fopen(fname, "r");
 	fseek(fp, 4, SEEK_SET);
 	ch = fgetc(fp);
@@ -110,11 +94,11 @@ COLOR_IMAGE* readPPM(char* fname)
 		pixlesArr[i] = (RGB**)malloc(cols * sizeof(RGB*));
 	line = (char*)malloc(18 * rows * sizeof(char));
 	fseek(fp, 6, SEEK_CUR); //to skip the values range
-	while (endOfInput == FALSE)
+	while (endOfInput == false)
 	{
 		ch = fgetc(fp);
 		if (ch == EOF)
-			endOfInput = TRUE;
+			endOfInput = true;
 		else
 		{
 			fseek(fp, -1, SEEK_CUR);
