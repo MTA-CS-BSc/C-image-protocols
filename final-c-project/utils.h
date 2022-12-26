@@ -43,7 +43,7 @@ typedef struct segment {
 } SEGMENT;
 
 void memoryAllocFailed();
-void printMatrix(char**, int, int);
+void printMatrix(unsigned char**, int, int);
 void skipLine(FILE*);
 void skipCommentLines(FILE*, char);
 

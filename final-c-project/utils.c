@@ -5,7 +5,7 @@ void memoryAllocFailed() {
 	exit(1);
 }
 
-void printMatrix(char** mat, int rows, int cols) {
+void printMatrix(unsigned char** mat, int rows, int cols) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
 			printf("%d ", mat[i][j]);
