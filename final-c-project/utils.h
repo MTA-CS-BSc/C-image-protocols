@@ -1,9 +1,20 @@
 #ifndef __UTILS_H
 #define __UTILS_H
 #define _CRT_SECURE_NO_WARNINGS
+
+// Librares
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+// For IMG_POS
+#define X 0
+#define Y 1
+
+// Macros
+#define abs(a) ((a) < 0 ? -(a) : (a))
+#define max(a, b) (((a) > (b)) ? (a) : (b))
+#define min(a, b) (((a) < (b)) ? (a) : (b))
 
 typedef struct tnode TNODE;
 
@@ -42,9 +53,14 @@ typedef struct segment {
 	TNODE* root;
 } SEGMENT;
 
-void memoryAllocFailed();
-void printMatrix(char**, int, int);
-void skipLine(FILE*);
-void skipCommentLines(FILE*, char);
 
+void memoryAllocFailed();
+void printMatrix(char** mat, int rows, int cols);
+void skipLine(FILE* fp);
+void skipCommentLines(FILE* fp, char current_char);
+void makeEmptyTNodeList(TNODE_LIST* list);
+bool isEmptyList(TNODE_LIST* list);
+TNODE* createTNode(IMG_POS point);
+TNODE_LNODE* createTNodeLNode(TNODE* data, TNODE_LNODE* next);
+void insertDataToEndList(TNODE_LIST* list, TNODE* data);
 #endif
