@@ -55,7 +55,7 @@ typedef struct segment {
 
 
 void memoryAllocFailed();
-void printMatrix(char** mat, int rows, int cols);
+void printMatrix(unsigned char** mat, int rows, int cols);
 void skipLine(FILE* fp);
 void skipCommentLines(FILE* fp, char current_char);
 void makeEmptyTNodeList(TNODE_LIST* list);
