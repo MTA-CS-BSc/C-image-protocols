@@ -1,5 +1,8 @@
+#include "Q1.h"
 #include "Q2.h"
 
 void main() {
-	readPGM("pgm.txt");
+	COLOR_IMAGE* iimg;
+	iimg = readPPM("ppm.txt");
+	printRGBMatrix(iimg->pixels, iimg->rows, iimg->cols);
 }

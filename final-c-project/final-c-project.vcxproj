@@ -140,11 +140,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="Q1.c" />
     <ClCompile Include="Q2.c" />
+    <ClCompile Include="Q3.c" />
+    <ClCompile Include="Q4.c" />
     <ClCompile Include="utils.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Q1.h" />
     <ClInclude Include="Q2.h" />
+    <ClInclude Include="Q3.h" />
+    <ClInclude Include="Q4.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
