@@ -24,12 +24,30 @@
     <ClCompile Include="utils.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Q3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Q4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Q1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Q2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Q3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Q4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Q1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,9 +12,9 @@
 #define Y 1
 
 // Macros
-#define abs(a) ((a) < 0 ? -(a) : (a))
-#define max(a, b) (((a) > (b)) ? (a) : (b))
-#define min(a, b) (((a) < (b)) ? (a) : (b))
+//#define abs(a) ((a) < 0 ? -(a) : (a))
+//#define max(a, b) (((a) > (b)) ? (a) : (b))
+//#define min(a, b) (((a) < (b)) ? (a) : (b))
 
 typedef struct tnode TNODE;
 
@@ -55,10 +55,12 @@ typedef struct segment {
 
 
 void memoryAllocFailed();
-void printMatrix(unsigned char** mat, int rows, int cols);
+void printGrayMatrix(unsigned char** mat, int rows, int cols);
+void printRGBMatrix(RGB** arr, int rows, int cols);
 void skipLine(FILE* fp);
-void skipCommentLines(FILE* fp, char current_char);
+void skipCommentLines(FILE* fp, char *current_char);
 void makeEmptyTNodeList(TNODE_LIST* list);
+void readHeaderFromPicFile(FILE* fp, int* rows, int* cols, int* depth);
 bool isEmptyList(TNODE_LIST* list);
 TNODE* createTNode(IMG_POS point);
 TNODE_LNODE* createTNodeLNode(TNODE* data, TNODE_LNODE* next);

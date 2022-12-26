@@ -1,8 +1,2 @@
-﻿  Q2.c
-C:\Users\mayar\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\Desktop\final-c-project\final-c-project\Q2.c(63,15): warning C4477: 'fscanf' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'unsigned char *'
-C:\Users\mayar\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\Desktop\final-c-project\final-c-project\Q2.c(63,15): message : consider using '%hhd' in the format string
-C:\Users\mayar\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\Desktop\final-c-project\final-c-project\Q2.c(68,7): warning C4101: 'current_char': unreferenced local variable
-  main.c
-  utils.c
-  Generating Code...
+﻿  main.c
   final-c-project.vcxproj -> C:\Users\mayar\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\Desktop\final-c-project\x64\Debug\final-c-project.exe
