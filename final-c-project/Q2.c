@@ -45,13 +45,13 @@ void readHeaderFromPGM(FILE* fp, int* cols, int* rows, int* depth) {
 }
 
 void readDataFromPGM(FILE* fp, GRAY_IMAGE* gray_image) {
-	gray_image->pixels = (char**)malloc(sizeof(char*) * gray_image->rows);
+	gray_image->pixels = (unsigned char**)malloc(sizeof(unsigned char*) * gray_image->rows);
 	
 	if (!(gray_image->pixels))
 		memoryAllocFailed();
 
 	for (int i = 0; i < gray_image->rows; i++) {
-		gray_image->pixels[i] = (char*)malloc(sizeof(char) * gray_image->cols);
+		gray_image->pixels[i] = (unsigned char*)malloc(sizeof(unsigned char) * gray_image->cols);
 
 		if (!(gray_image->pixels[i]))
 			memoryAllocFailed();
