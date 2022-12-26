@@ -1,4 +1,3 @@
-#include "utils.h"
 #include "Q2.h"
 
 void readHeaderFromPGM(FILE* fp, int* cols, int* rows, int* depth) {
@@ -56,11 +55,10 @@ void readDataFromPGM(FILE* fp, GRAY_IMAGE* gray_image) {
 
 		if (!(gray_image->pixels[i]))
 			memoryAllocFailed();
-	}
 
-	for (int i = 0; i < gray_image->rows; i++)
 		for (int j = 0; j < gray_image->cols; j++)
 			fscanf(fp, "%d", gray_image->pixels[i] + j);
+	}
 }
 
 GRAY_IMAGE* readPGM(char* fname) {
