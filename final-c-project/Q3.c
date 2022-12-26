@@ -1,7 +1,8 @@
 #include "Q3.h"
+#include <math.h>
 
-bool checkIfTresholdOk(unsigned char** pixels, IMG_POS n1, IMG_POS n2, int threshold) {
-	return ((pixels[n1[X]][n1[Y]] - pixels[n2[X]][n2[Y]]) <= threshold);
+bool checkIfTresholdOk(GRAY_IMAGE* img, IMG_POS n1, IMG_POS n2, int threshold) {
+	return ((img->pixels[n1[X]][n1[Y]] - img->pixels[n2[X]][n2[Y]]) <= threshold);
 }
 
 bool** createPixelsFlagsMatrix(GRAY_IMAGE* img) {
@@ -23,50 +24,33 @@ bool** createPixelsFlagsMatrix(GRAY_IMAGE* img) {
 	return pixels_flags;
 }
 
-//void findRelevantNeighbors(GRAY_IMAGE* img, TNODE* current_root, IMG_POS start,
-//	int threshold, bool** pixels_flags) {
-//	IMG_POS current;
-//	int i = current_root->position[X];
-//	int j = current_root->position[Y];
-//
-//	for (int x = max(0, i - 1); x <= min(i + 1, img->rows); x++) {
-//		for (int y = max(0, j - 1); y <= min(j + 1, img->cols); y++) {
-//			if (x != i || y != j) {
-//				current[X] = x;
-//				current[Y] = y;
-//
-//				if (checkIfTresholdOk(img->pixels, start,
-//						current, threshold) && !pixels_flags[x][y]) {
-//					pixels_flags[x][y] = true;
-//					insertDataToEndList(&(current_root->nextPossiblePositions), createTNode(current));
-//				}
-//			}
-//		}
-//	}
-//}
-
-void findSingleSegmentHelper(GRAY_IMAGE* img, IMG_POS start,
-	unsigned char threshold, bool** pixels_flags, TNODE* current_root) {
-	TNODE_LNODE* current_neighbor;
-
+void findRelevantNeighbors(GRAY_IMAGE* img, TNODE* current_root, IMG_POS start,
+	int threshold, bool** pixels_flags) {
 	IMG_POS current;
 	int i = current_root->position[X];
 	int j = current_root->position[Y];
 
-	for (int x = max(0, i - 1); x < min(i + 1, img->rows); x++) {
-		for (int y = max(0, j - 1); y < min(j + 1, img->cols); y++) {
+	for (int x = max(0, i - 1); x <= min(i + 1, img->rows - 1); x++) {
+		for (int y = max(0, j - 1); y <= min(j + 1, img->cols - 1); y++) {
 			if (x != i || y != j) {
 				current[X] = x;
 				current[Y] = y;
 
-				if (checkIfTresholdOk(img->pixels, start,
-					current, threshold) && !pixels_flags[x][y]) {
+				if (checkIfTresholdOk(img, start,
+						current, threshold) && !pixels_flags[x][y]) {
 					pixels_flags[x][y] = true;
 					insertDataToEndList(&(current_root->nextPossiblePositions), createTNode(current));
 				}
 			}
 		}
 	}
+}
+
+void findSingleSegmentHelper(GRAY_IMAGE* img, IMG_POS start,
+	unsigned char threshold, bool** pixels_flags, TNODE* current_root) {
+	TNODE_LNODE* current_neighbor;
+
+	findRelevantNeighbors(img, current_root, start, threshold, pixels_flags);
 
 	current_neighbor = current_root->nextPossiblePositions.head;
 
