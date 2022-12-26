@@ -2,7 +2,7 @@
 #define __Q3_H
 #include "utils.h"
 
-bool checkIfTresholdOk(unsigned char** pixels, IMG_POS n1, IMG_POS n2, int threshold);
+bool checkIfTresholdOk(GRAY_IMAGE *img, IMG_POS n1, IMG_POS n2, int threshold);
 
 bool** createPixelsFlagsMatrix(GRAY_IMAGE* img);
 
