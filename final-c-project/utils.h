@@ -53,6 +53,15 @@ typedef struct segment {
 	TNODE* root;
 } SEGMENT;
 
+typedef struct img_pos_node {
+	IMG_POS position;
+	struct img_pos_node* next, * prev;
+} IMG_POS_NODE;
+
+typedef struct img_pos_list {
+	IMG_POS_NODE* head;
+	IMG_POS_NODE* tail;
+} IMG_POS_LIST;
 
 void memoryAllocFailed();
 void printGrayMatrix(unsigned char** mat, int rows, int cols);
@@ -65,4 +74,7 @@ bool isEmptyList(TNODE_LIST* list);
 TNODE* createTNode(IMG_POS point);
 TNODE_LNODE* createTNodeLNode(TNODE* data, TNODE_LNODE* next);
 void insertDataToEndList(TNODE_LIST* list, TNODE* data);
+bool checkIfTresholdOk(GRAY_IMAGE* img, IMG_POS n1, IMG_POS n2, int threshold);
+bool** createPixelsFlagsMatrix(GRAY_IMAGE* img);
+
 #endif

@@ -127,3 +127,30 @@ void insertDataToEndList(TNODE_LIST* list, TNODE* data) {
 		list->tail = node;
 	}
 }
+
+bool checkIfTresholdOk(GRAY_IMAGE* img, IMG_POS n1, IMG_POS n2, int threshold) {
+	return (abs((img->pixels[n1[X]][n1[Y]] - img->pixels[n2[X]][n2[Y]])) <= threshold);
+}
+
+bool** createPixelsFlagsMatrix(GRAY_IMAGE* img) {
+	bool** pixels_flags = (bool**)malloc(sizeof(bool*) * img->rows);
+
+	if (!pixels_flags)
+		memoryAllocFailed();
+
+	for (int i = 0; i < img->rows; i++) {
+		pixels_flags[i] = (bool*)malloc(sizeof(bool) * img->cols);
+
+		if (!pixels_flags[i])
+			memoryAllocFailed();
+
+		for (int j = 0; j < img->cols; j++)
+			pixels_flags[i][j] = false;
+	}
+
+	return pixels_flags;
+}
+
+bool isInRange(int row, int col, GRAY_IMAGE* img) {
+	return (row >= 0 && row < img->rows&& col >= 0 && col < img->cols);
+}
