@@ -39,5 +39,7 @@ GRAY_IMAGE* readPGM(char* fname) {
 
 	readDataFromPGM(fp, gray_image);
 
+	fclose(fp);
+
 	return gray_image;
 }

@@ -39,7 +39,7 @@ COLOR_IMAGE* readPPM(char* fname) {
 
 	readDataFromPPM(fp, color_image);
 
-	fp = fclose;
+	fclose(fp);
 
 	return color_image;
 }
