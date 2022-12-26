@@ -35,8 +35,9 @@ void findRelevantNeighbors(GRAY_IMAGE* img, TNODE* current_root, IMG_POS start,
 				current[X] = x;
 				current[Y] = y;
 
-				if (checkIfTresholdOk(img->pixels, start, current, threshold)
-					&& !pixels_flags[x][y]) {
+				if (!pixels_flags[x][y] &&
+					checkIfTresholdOk(img->pixels, start,
+						current, threshold)) {
 					pixels_flags[x][y] = true;
 					insertDataToEndList(&(current_root->nextPossiblePositions), createTNode(current));
 				}
