@@ -13,8 +13,9 @@ void readDataFromPGM(FILE* fp, GRAY_IMAGE* gray_image) {
 			memoryAllocFailed();
 
 		for (int j = 0; j < gray_image->cols; j++)
-			fscanf(fp, "%d", gray_image->pixels[i] + j);
+			fscanf(fp, "%d", &(gray_image->pixels[i][j]));
 	}
+		
 }
 
 GRAY_IMAGE* readPGM(char* fname) {

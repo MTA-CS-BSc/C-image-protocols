@@ -108,6 +108,7 @@ void readHeaderFromPicFile(FILE* fp, int* cols, int* rows, int* depth) {
 		fscanf(fp, "%d", depth);
 
 		skipLine(fp);
+		current_char = fgetc(fp);
 
 		skipCommentLines(fp, &current_char);
 
