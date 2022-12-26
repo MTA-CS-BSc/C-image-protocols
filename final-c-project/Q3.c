@@ -1,5 +1,4 @@
 #include "Q3.h"
-#include <math.h>
 
 void findRelevantNeighbors(GRAY_IMAGE* img, TNODE* current_root, IMG_POS start,
 	int threshold, bool** pixels_flags) {
