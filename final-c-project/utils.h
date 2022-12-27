@@ -76,11 +76,11 @@ bool isEmptyImgPosList(IMG_POS_LIST* list);
 TNODE* createTNode(IMG_POS point);
 TNODE_LNODE* createTNodeLNode(TNODE* data, TNODE_LNODE* next);
 IMG_POS_NODE* createImgPosNode(IMG_POS data, IMG_POS_NODE* next, IMG_POS_NODE* prev);
+bool** createPixelsFlagsMatrix(GRAY_IMAGE* img);
 void insertNodeToEndTNodeList(TNODE_LIST* list, TNODE_LNODE* node);
 void insertDataToEndTNodeList(TNODE_LIST* list, TNODE* data);
 void insertNodeToEndImgPosList(IMG_POS_LIST* list, IMG_POS_NODE* node);
 void insertDataToEndImgPosList(IMG_POS_LIST* list, IMG_POS data);
 bool checkIfTresholdOk(GRAY_IMAGE* img, IMG_POS n1, IMG_POS n2, int threshold);
-bool** createPixelsFlagsMatrix(GRAY_IMAGE* img);
 bool isInRange(int row, int col, GRAY_IMAGE* img);
 #endif
