@@ -1,5 +1,4 @@
 #include "Q4.h"
-#include "Q3.h"
 
 void getImgPosListFromSegmentHelper(TNODE* root, IMG_POS_LIST* list) {
 	if (!root)

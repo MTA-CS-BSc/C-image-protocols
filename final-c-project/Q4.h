@@ -1,6 +1,7 @@
 #ifndef __Q4_H
 #define __Q4_H
 #include "utils.h"
+#include "Q3.h"
 
 void getImgPosListFromSegmentHelper(TNODE* root, IMG_POS_LIST* list);
 
