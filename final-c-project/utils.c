@@ -49,6 +49,10 @@ bool isEmptyTNodeList(TNODE_LIST* list) {
 	return list->head == NULL;
 }
 
+bool isEmptyImgPosList(IMG_POS_LIST* list) {
+	return list->head == NULL;
+}
+
 TNODE* createTNode(IMG_POS point) {
 	TNODE* node = (TNODE*)malloc(sizeof(TNODE));
 
@@ -135,6 +139,25 @@ void insertDataToEndTNodeList(TNODE_LIST* list, TNODE* data) {
 	insertNodeToEndTNodeList(list, node);
 }
 
+void insertNodeToEndImgPosList(IMG_POS_LIST* list, IMG_POS_NODE* node) {
+	if (isEmptyImgPosList(list))
+		list->head = list->tail = node;
+
+	else {
+		list->tail->next = node;
+		node->prev = list->tail;
+		node->next = NULL;
+		list->tail = node;
+	}
+
+
+}
+
+void insertDataToEndImgPosList(IMG_POS_LIST* list, IMG_POS data) {
+	IMG_POS_NODE* node = createImgPosNode(data, NULL, NULL);
+	insertNodeToEndImgPosList(list, node);
+}
+
 bool checkIfTresholdOk(GRAY_IMAGE* img, IMG_POS n1, IMG_POS n2, int threshold) {
 	return (abs((img->pixels[n1[X]][n1[Y]] - img->pixels[n2[X]][n2[Y]])) <= threshold);
 }
@@ -174,28 +197,5 @@ IMG_POS_NODE* createImgPosNode(IMG_POS data, IMG_POS_NODE* next, IMG_POS_NODE* p
 	node->position[Y] = data[Y];
 
 	return node;
-}
-
-bool isEmptyImgPosList(IMG_POS_LIST* list) {
-	return list->head == NULL;
-}
-
-void insertNodeToEndImgPosList(IMG_POS_LIST* list, IMG_POS_NODE* node) {
-	if (isEmptyImgPosList(list))
-		list->head = list->tail = node;
-
-	else {
-		list->tail->next = node;
-		node->prev = list->tail;
-		node->next = NULL;
-		list->tail = node;
-	}
-
-
-}
-
-void insertDataToEndImgPosList(IMG_POS_LIST* list, IMG_POS data) {
-	IMG_POS_NODE* node = createImgPosNode(data, NULL, NULL);
-	insertNodeToEndImgPosList(list, node);
 }
 
