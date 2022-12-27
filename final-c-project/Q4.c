@@ -14,11 +14,11 @@ void getImgPosListFromSegmentHelper(TNODE* root, IMG_POS_LIST* list) {
 		
 }
 
-IMG_POS_LIST* getImgPosListFromSegment(TNODE* segment_root) {
-	IMG_POS_LIST *img_pos_list = (IMG_POS_LIST*)malloc(sizeof(IMG_POS_LIST));
-	makeEmptyImgPosList(img_pos_list);
+IMG_POS_LIST getImgPosListFromSegment(TNODE* segment_root) {
+	IMG_POS_LIST img_pos_list;
+	makeEmptyImgPosList(&img_pos_list);
 
-	getImgPosListFromSegmentHelper(segment_root, img_pos_list);
+	getImgPosListFromSegmentHelper(segment_root, &img_pos_list);
 
 	return img_pos_list;
 }
@@ -27,12 +27,14 @@ int findAllSegments(GRAY_IMAGE* img,
 	unsigned char threshold, IMG_POS_LIST** segments) {
 	bool** pixels_flags = createPixelsFlagsMatrix(img);
 	IMG_POS current_pos;
-	IMG_POS_LIST *current_img_pos_list;
+	IMG_POS_LIST current_img_pos_list;
 	TNODE* current_root = NULL;
 	int current_size = 0;
-	segments = (IMG_POS_LIST**)malloc(sizeof(IMG_POS_LIST*) * (current_size + 1));
+	IMG_POS_LIST* returned_array_of_lists;
 
-	if (!segments)
+	returned_array_of_lists = (IMG_POS_LIST*)malloc(sizeof(IMG_POS_LIST) * (current_size + 1));
+
+	if (!returned_array_of_lists)
 		memoryAllocFailed();
 
 
@@ -48,16 +50,17 @@ int findAllSegments(GRAY_IMAGE* img,
 				findSingleSegmentHelper(img, current_pos, threshold, pixels_flags, current_root);
 
 				current_img_pos_list = getImgPosListFromSegment(current_root);
-				segments = (IMG_POS_LIST**)realloc(segments, sizeof(IMG_POS_LIST*) * (current_size + 1));
+				returned_array_of_lists = (IMG_POS_LIST*)realloc(returned_array_of_lists, sizeof(IMG_POS_LIST) * (current_size + 1));
 
-				if (!segments)
+				if (!returned_array_of_lists)
 					memoryAllocFailed();
 
-				segments[current_size++] = current_img_pos_list;
+				returned_array_of_lists[current_size++] = current_img_pos_list;
 				current_root = NULL;
 			}
 		}
 	}
 
+	*segments = returned_array_of_lists;
 	return current_size;
 }
