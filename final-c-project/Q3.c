@@ -18,11 +18,9 @@ void findRelevantNeighbors(GRAY_IMAGE* img, TNODE* current_root, IMG_POS start,
 			if (checkIfTresholdOk(img, start,
 					current, threshold) && !pixels_flags[x][y]) {
 				pixels_flags[x][y] = true;
-				insertDataToEndList(&(current_root->nextPossiblePositions), createTNode(current));
+				insertDataToEndTNodeList(&(current_root->nextPossiblePositions), createTNode(current));
 			}
 		}
-
-
 	}
 }
 
@@ -46,7 +44,6 @@ SEGMENT findSingleSegment(GRAY_IMAGE* img,
 	bool** pixels_flags = createPixelsFlagsMatrix(img);
 	TNODE* root = createTNode(start);
 
-	makeEmptyTNodeList(&(root->nextPossiblePositions));
 	pixels_flags[start[X]][start[Y]] = true;
 
 	findSingleSegmentHelper(img, start, threshold, pixels_flags, root);

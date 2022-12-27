@@ -41,7 +41,11 @@ void makeEmptyTNodeList(TNODE_LIST* list) {
 	list->head = list->tail = NULL;
 }
 
-bool isEmptyList(TNODE_LIST* list) {
+void makeEmptyImgPosList(IMG_POS_LIST* list) {
+	list->head = list->tail = NULL;
+}
+
+bool isEmptyTNodeList(TNODE_LIST* list) {
 	return list->head == NULL;
 }
 
@@ -116,16 +120,19 @@ void readHeaderFromPicFile(FILE* fp, int* cols, int* rows, int* depth) {
 	}
 }
 
-void insertDataToEndList(TNODE_LIST* list, TNODE* data) {
-	TNODE_LNODE* node = createTNodeLNode(data, NULL);
-
-	if (isEmptyList(list))
+void insertNodeToEndTNodeList(TNODE_LIST* list, TNODE_LNODE* node) {
+	if (isEmptyTNodeList(list))
 		list->head = list->tail = node;
 
 	else {
 		list->tail->next = node;
 		list->tail = node;
 	}
+}
+
+void insertDataToEndTNodeList(TNODE_LIST* list, TNODE* data) {
+	TNODE_LNODE* node = createTNodeLNode(data, NULL);
+	insertNodeToEndTNodeList(list, node);
 }
 
 bool checkIfTresholdOk(GRAY_IMAGE* img, IMG_POS n1, IMG_POS n2, int threshold) {
@@ -154,3 +161,41 @@ bool** createPixelsFlagsMatrix(GRAY_IMAGE* img) {
 bool isInRange(int row, int col, GRAY_IMAGE* img) {
 	return (row >= 0 && row < img->rows&& col >= 0 && col < img->cols);
 }
+
+IMG_POS_NODE* createImgPosNode(IMG_POS data, IMG_POS_NODE* next, IMG_POS_NODE* prev) {
+	IMG_POS_NODE* node = (IMG_POS_NODE*)malloc(sizeof(IMG_POS_NODE));
+
+	if (!node)
+		memoryAllocFailed();
+
+	node->prev = prev;
+	node->next = next;
+	node->position[X] = data[X];
+	node->position[Y] = data[Y];
+
+	return node;
+}
+
+bool isEmptyImgPosList(IMG_POS_LIST* list) {
+	return list->head == NULL;
+}
+
+void insertNodeToEndImgPosList(IMG_POS_LIST* list, IMG_POS_NODE* node) {
+	if (isEmptyImgPosList(list))
+		list->head = list->tail = node;
+
+	else {
+		list->tail->next = node;
+		node->prev = list->tail;
+		node->next = NULL;
+		list->tail = node;
+	}
+
+
+}
+
+void insertDataToEndImgPosList(IMG_POS_LIST* list, IMG_POS data) {
+	IMG_POS_NODE* node = createImgPosNode(data, NULL, NULL);
+	insertNodeToEndImgPosList(list, node);
+}
+
