@@ -48,6 +48,8 @@ SEGMENT findSingleSegment(GRAY_IMAGE* img,
 
 	findSingleSegmentHelper(img, start, threshold, pixels_flags, root);
 
+	freePixelsFlags(pixels_flags, (int)img->rows, (int)img->cols);
+
 	segment.root = root;
 	return segment;
 }

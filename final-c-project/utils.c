@@ -199,3 +199,9 @@ IMG_POS_NODE* createImgPosNode(IMG_POS data, IMG_POS_NODE* next, IMG_POS_NODE* p
 	return node;
 }
 
+void freePixelsFlags(bool** flags, int rows, int cols) {
+	for (int i = 0; i < rows; i++)
+		free(flags[i]);
+
+	free(flags);
+}
