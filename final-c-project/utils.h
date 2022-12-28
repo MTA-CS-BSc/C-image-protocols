@@ -10,7 +10,7 @@
 // For IMG_POS
 #define X 0
 #define Y 1
-
+#define MAX_NEIGHBORS 8
 // Macros
 //#define abs(a) ((a) < 0 ? -(a) : (a))
 //#define max(a, b) (((a) > (b)) ? (a) : (b))

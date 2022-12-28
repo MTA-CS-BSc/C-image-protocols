@@ -4,11 +4,11 @@ void findRelevantNeighbors(GRAY_IMAGE* img, TNODE* current_root, IMG_POS start,
 	int threshold, bool** pixels_flags) {
 	IMG_POS current;
 
-	int iarr[8] = { -1, -1, 0, +1, +1, +1, 0, -1 };
-	int jarr[8] = { 0, +1, +1, +1, 0, -1, -1, -1 };
+	int iarr[MAX_NEIGHBORS] = { -1, -1, 0, +1, +1, +1, 0, -1 };
+	int jarr[MAX_NEIGHBORS] = { 0, +1, +1, +1, 0, -1, -1, -1 };
 	int x, y;
 
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < MAX_NEIGHBORS; i++) {
 		x = current_root->position[X] + iarr[i];
 		y = current_root->position[Y] + jarr[i];
 
