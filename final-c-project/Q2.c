@@ -2,7 +2,7 @@
 
 void readDataFromPGM(FILE* fp, GRAY_IMAGE* gray_image) {
 	gray_image->pixels = (unsigned char**)malloc(sizeof(unsigned char*) * gray_image->rows);
-	
+
 	if (!(gray_image->pixels))
 		memoryAllocFailed();
 
@@ -32,7 +32,7 @@ GRAY_IMAGE* readPGM(char* fname) {
 		exit(1);
 	}
 
-	readHeaderFromPicFile(fp, &cols, &rows, &depth);
+	readHeaderFromPicFile(fp, &rows, &cols, &depth);
 
 	gray_image->cols = cols;
 	gray_image->rows = rows;

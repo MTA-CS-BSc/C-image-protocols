@@ -31,10 +31,15 @@ void skipLine(FILE* fp) {
 }
 
 void skipCommentLines(FILE* fp, char *current_char) {
+	bool entered = false;
 	while (*current_char == '#') {
+		entered = true;
 		skipLine(fp);
 		*current_char = fgetc(fp);
 	}
+
+	if (entered)
+		fseek(fp, -1, SEEK_CUR);
 }
 
 void makeEmptyTNodeList(TNODE_LIST* list) {
@@ -78,49 +83,42 @@ TNODE_LNODE* createTNodeLNode(TNODE* data, TNODE_LNODE* next) {
 	return lnode;
 }
 
-void readHeaderFromPicFile(FILE* fp, int* cols, int* rows, int* depth) {
+void skipUntilOk(FILE* fp) {
 	char current_char;
 
-	// First we need to read the format of the file from the header:
-	// There are two possible cases:
-	// - The file can start with comments
-	// - The file starts with the file format
-
+	skipLine(fp);
 	current_char = fgetc(fp);
 
-	skipCommentLines(fp, &current_char);
-
-	// Now we are standing on the format
-	current_char = fgetc(fp); // Now current_char is holding the identifier
-
-	if (current_char == '3' || current_char == '2') {
-		// Now we need to get the rows and cols amount from the header
-
-		skipLine(fp);
-		current_char = fgetc(fp);
-
+	if (current_char == '#')
 		skipCommentLines(fp, &current_char);
 
-		// To go back to the beginning of the rows cols line
+	else
 		fseek(fp, -1, SEEK_CUR);
+}
 
-		// Now we should be standing on the cols rows row
+void readHeaderFromPicFile(FILE* fp, int* rows, int* cols, int* depth) {
+	char current_char = fgetc(fp);
+
+	// There are two options:
+	// First char can be #, or P
+
+	if (current_char == '#') {
+		skipCommentLines(fp, &current_char);
+		current_char = fgetc(fp);
+	}
+		
+	current_char = fgetc(fp);
+	
+	if (current_char == '2' || current_char == '3') {
+		skipUntilOk(fp);
+
 		fscanf(fp, "%d %d", cols, rows);
 
-		skipLine(fp);
-		current_char = fgetc(fp);
+		skipUntilOk(fp);
 
-		skipCommentLines(fp, &current_char);
-
-		fseek(fp, -1, SEEK_CUR);
 		fscanf(fp, "%d", depth);
 
-		skipLine(fp);
-		current_char = fgetc(fp);
-
-		skipCommentLines(fp, &current_char);
-
-		// Now we're standing at the beginning of the data
+		skipUntilOk(fp);
 	}
 }
 
