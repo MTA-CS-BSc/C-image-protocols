@@ -33,6 +33,9 @@
     <ClCompile Include="Q1.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Q5.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Q1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Q5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
