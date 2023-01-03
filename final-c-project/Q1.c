@@ -31,7 +31,7 @@ COLOR_IMAGE* readPPM(char* fname) {
 		exit(1);
 	}
 
-	readHeaderFromPicFile(fp, &cols, &rows, &depth);
+	readHeaderFromPicFile(fp, &rows, &cols, &depth);
 
 	color_image->cols = cols;
 	color_image->rows = rows;

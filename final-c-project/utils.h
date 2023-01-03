@@ -70,6 +70,7 @@ void skipLine(FILE* fp);
 void skipCommentLines(FILE* fp, char *current_char);
 void makeEmptyTNodeList(TNODE_LIST* list);
 void makeEmptyImgPosList(IMG_POS_LIST* list);
+void skipUntilOk(FILE* fp);
 void readHeaderFromPicFile(FILE* fp, int* rows, int* cols, int* depth);
 bool isEmptyTNodeList(TNODE_LIST* list);
 bool isEmptyImgPosList(IMG_POS_LIST* list);
