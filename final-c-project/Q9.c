@@ -82,7 +82,7 @@ void updateNewValsMatrix(GRAY_IMAGE* gray_image, int depth, int start_x, int sta
 		for (int j = 0; j < k; j++) {
 			if (start_x + i < gray_image->rows && start_y + j < gray_image->cols) {
 				current_val = gray_image->pixels[start_x + i][start_y + j] / divider;
-				updateMat(new_vals, current_val, mask_matrix, start_x, i, start_y, j);
+				updateMat(new_vals, (char)current_val, mask_matrix, start_x, i, start_y, j);
 
 			}
 		}
