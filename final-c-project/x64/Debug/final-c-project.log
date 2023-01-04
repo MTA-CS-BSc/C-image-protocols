@@ -1,19 +1,4 @@
 ﻿  main.c
-  Q1.c
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\final-c-project\Q1.c(16,15): warning C4477: 'fscanf' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'unsigned char *'
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\final-c-project\Q1.c(16,15): message : consider using '%hhd' in the format string
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\final-c-project\Q1.c(16,15): warning C4477: 'fscanf' : format string '%d' requires an argument of type 'int *', but variadic argument 2 has type 'unsigned char *'
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\final-c-project\Q1.c(16,15): message : consider using '%hhd' in the format string
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\final-c-project\Q1.c(16,15): warning C4477: 'fscanf' : format string '%d' requires an argument of type 'int *', but variadic argument 3 has type 'unsigned char *'
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\final-c-project\Q1.c(16,15): message : consider using '%hhd' in the format string
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\final-c-project\Q1.c(22,7): warning C4101: 'current_char': unreferenced local variable
-  Q2.c
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\final-c-project\Q2.c(16,15): warning C4477: 'fscanf' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'unsigned char *'
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\final-c-project\Q2.c(16,15): message : consider using '%hhd' in the format string
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\final-c-project\Q2.c(23,7): warning C4101: 'current_char': unreferenced local variable
-  Q3.c
-  Q4.c
-  utils.c
-  Generating Code...
-main.obj : error LNK2019: unresolved external symbol colorSegments referenced in function main
-C:\Users\14019\OneDrive\שולחן העבודה\final-c-project\x64\Debug\final-c-project.exe : fatal error LNK1120: 1 unresolved externals
+C:\Users\mayar\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\Desktop\final-c-project\final-c-project\main.c(10,28): warning C4133: '=': incompatible types - from 'COLOR_IMAGE *' to 'GRAY_IMAGE *'
+C:\Users\mayar\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\Desktop\final-c-project\final-c-project\main.c(13,29): warning C4133: 'function': incompatible types - from 'unsigned char **' to 'RGB **'
+  final-c-project.vcxproj -> C:\Users\mayar\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\Desktop\final-c-project\x64\Debug\final-c-project.exe
