@@ -2,4 +2,7 @@
 #define __Q10_H
 #include "utils.h"
 
+void readDataFromBinaryPPM(FILE* fp, COLOR_IMAGE* color_image);
+
+COLOR_IMAGE* readBinaryPPM(char* fname);
 #endif
