@@ -5,6 +5,13 @@ void memoryAllocFailed() {
 	exit(1);
 }
 
+void freeMat(char** matrix, int rows) {
+	for (int i = 0; i < rows; i++)
+		free(matrix[i]);
+
+	free(matrix);
+}
+
 void printGrayMatrix(unsigned char** mat, int rows, int cols) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) 
@@ -56,6 +63,22 @@ bool isEmptyTNodeList(TNODE_LIST* list) {
 
 bool isEmptyImgPosList(IMG_POS_LIST* list) {
 	return list->head == NULL;
+}
+
+char** createMatrix(int rows, int cols) {
+	char** new_vals = (char**)malloc(sizeof(char*) * rows);
+
+	if (!new_vals)
+		memoryAllocFailed();
+
+	for (int i = 0; i < rows; i++) {
+		new_vals[i] = (char*)malloc(sizeof(char) * cols);
+
+		if (!new_vals[i])
+			memoryAllocFailed();
+	}
+
+	return new_vals;
 }
 
 TNODE* createTNode(IMG_POS point) {
