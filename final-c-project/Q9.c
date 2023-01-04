@@ -1,6 +1,5 @@
 #include "Q9.h"
 #include "Q2.h"
-#include <math.h>
 
 char* get_bw_file_name(char* fname, int k) {
 	char* bw_file_name = (char*)malloc(sizeof(char) * (strlen(fname) + strlen(".bw") + 2));
@@ -13,39 +12,6 @@ char* get_bw_file_name(char* fname, int k) {
 	bw_file_name[strlen(fname) + 1 + strlen(".bw")] = '\0';
 
 	return bw_file_name;
-}
-
-void writeMatrixToFile(FILE* fp, char** mat, int rows, int cols) {
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++)
-			fprintf(fp, "%d ", mat[i][j]);
-
-		fputc('\n', fp);
-	}
-}
-
-void updateMat(char** new_vals, char current_val, char **mask_matrix, int start_x, int i, int start_y, int j) {
-	if (current_val > mask_matrix[i][j])
-		new_vals[start_x + i][start_y + j] = 1;
-
-	else
-		new_vals[start_x + i][start_y + j] = 0;
-}
-
-char** createMatrix(int rows, int cols) {
-	char** new_vals = (char**)malloc(sizeof(char*) * rows);
-	
-	if (!new_vals)
-		memoryAllocFailed();
-
-	for (int i = 0; i < rows; i++) {
-		new_vals[i] = (char*)malloc(sizeof(char) * cols);
-
-		if (!new_vals[i])
-			memoryAllocFailed();
-	}
-
-	return new_vals;
 }
 
 char** createMaskMatrix(int k) {
@@ -74,6 +40,23 @@ char** createMaskMatrix(int k) {
 	return mask_matrix;
 }
 
+void writeMatrixToFile(FILE* fp, char** mat, int rows, int cols) {
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++)
+			fprintf(fp, "%d ", mat[i][j]);
+
+		fputc('\n', fp);
+	}
+}
+
+void updateMat(char** new_vals, char current_val, char **mask_matrix, int start_x, int i, int start_y, int j) {
+	if (current_val > mask_matrix[i][j])
+		new_vals[start_x + i][start_y + j] = 1;
+
+	else
+		new_vals[start_x + i][start_y + j] = 0;
+}
+
 void updateNewValsMatrix(GRAY_IMAGE* gray_image, int depth, int start_x, int start_y, int k, char** new_vals) {
 	int divider = (int)ceil((double)depth / (k * k)), current_val;
 	char** mask_matrix = createMaskMatrix(k);
@@ -83,17 +66,11 @@ void updateNewValsMatrix(GRAY_IMAGE* gray_image, int depth, int start_x, int sta
 			if (start_x + i < gray_image->rows && start_y + j < gray_image->cols) {
 				current_val = gray_image->pixels[start_x + i][start_y + j] / divider;
 				updateMat(new_vals, current_val, mask_matrix, start_x, i, start_y, j);
-
 			}
 		}
 	}
-}
 
-void freeMat(char** matrix, int rows) {
-	for (int i = 0; i < rows; i++)
-		free(matrix[i]);
-
-	free(matrix);
+	freeMat(mask_matrix, k);
 }
 
 void convertPGMToBW(char* fname) {
