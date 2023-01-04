@@ -26,4 +26,5 @@ void convertPPMToPGM(char* fname) {
 
 	fclose(ppm_fp);
 	fclose(pgm_fp);
+	free(new_fname);
 }
