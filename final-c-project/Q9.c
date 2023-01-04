@@ -2,16 +2,24 @@
 #include "Q2.h"
 
 char* get_bw_file_name(char* fname, int k) {
-	char* bw_file_name = (char*)malloc(sizeof(char) * (strlen(fname) + strlen(".bw") + 2));
+	int ext_length = strlen(".bw.pgm");
+	char* returned_fname;
+	char* new_ext = (char*)malloc(sizeof(char) * (ext_length + 2));
 
-	if (!bw_file_name)
+	if (!new_ext)
 		memoryAllocFailed();
+	
+	new_ext[0] = (char)k + '0';
+	new_ext[1] = '\0';
 
-	sprintf(bw_file_name, "%s%d%s", fname, k, ".bw");
+	strcat(new_ext, ".bw.pgm");
+	new_ext[ext_length + 1] = '\0';
 
-	bw_file_name[strlen(fname) + 1 + strlen(".bw")] = '\0';
+	returned_fname = createNewFileExtension(fname, new_ext);
 
-	return bw_file_name;
+	free(new_ext);
+
+	return returned_fname;
 }
 
 char** createMaskMatrix(int k) {
