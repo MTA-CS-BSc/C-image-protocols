@@ -54,7 +54,7 @@ GRAY_IMAGE* colorSegments(IMG_POS_LIST* segments,
 	
 	allocatePixelsMatrix(gray_image);
 
-	for (int i = 0; i < size; i++) {
+	for (int i = 0; i < (int)size; i++) {
 		gray_level = (i * 255) / (unsigned char)(size - 1); // Calculation described in Q5
 		current = segments[i].head;
 
