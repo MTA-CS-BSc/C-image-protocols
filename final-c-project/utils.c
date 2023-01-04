@@ -5,6 +5,35 @@ void memoryAllocFailed() {
 	exit(1);
 }
 
+void freeMat(char** matrix, int rows) {
+	for (int i = 0; i < rows; i++)
+		free(matrix[i]);
+
+	free(matrix);
+}
+
+char* getFirstTokenUntilDot(char* fname) {
+	return strtok(fname, ".");
+}
+
+char* createNewFileExtension(char* fname, char* ext) {
+	char* fname_dup = _strdup(fname);
+	char* name_wo_ext = getFirstTokenUntilDot(fname_dup);
+	char* new_file_name = (char*)malloc((strlen(name_wo_ext) + strlen(ext) + 1) * sizeof(char));
+
+	if (!new_file_name)
+		memoryAllocFailed();
+
+	new_file_name[0] = '\0';
+
+	strcat(new_file_name, name_wo_ext);
+	strcat(new_file_name, ext);
+
+	free(fname_dup);
+
+	return new_file_name;
+}
+
 void printGrayMatrix(unsigned char** mat, int rows, int cols) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) 
@@ -56,6 +85,22 @@ bool isEmptyTNodeList(TNODE_LIST* list) {
 
 bool isEmptyImgPosList(IMG_POS_LIST* list) {
 	return list->head == NULL;
+}
+
+char** createMatrix(int rows, int cols) {
+	char** new_vals = (char**)malloc(sizeof(char*) * rows);
+
+	if (!new_vals)
+		memoryAllocFailed();
+
+	for (int i = 0; i < rows; i++) {
+		new_vals[i] = (char*)malloc(sizeof(char) * cols);
+
+		if (!new_vals[i])
+			memoryAllocFailed();
+	}
+
+	return new_vals;
 }
 
 TNODE* createTNode(IMG_POS point) {

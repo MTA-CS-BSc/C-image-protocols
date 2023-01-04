@@ -1,20 +1,14 @@
 #include "Q8.h"
 
 char* createPgmFileName(char* fname) {
-	char* newFname = (char*)malloc((strlen(fname) + strlen(".pgm") + 1) * sizeof(char));
-	
-	if (!newFname)
-		memoryAllocFailed();
-
-	sprintf(newFname, "%s%s", fname, ".pgm");
-
-	return newFname;
+	return createNewFileExtension(fname, ".pgm");
 }
 
 void convertPPMToPGM(char* fname) {
 	int rows, cols, depth, gray_level;
 	FILE *ppm_fp = fopen(fname, "r");
-	FILE *pgm_fp = fopen(createPgmFileName(fname), "w");
+	char* new_fname = createPgmFileName(fname);
+	FILE *pgm_fp = fopen(new_fname, "w");
 	COLOR_IMAGE* colorFile = readPPM(fname);
 
 	readHeaderFromPicFile(ppm_fp, &rows, &cols, &depth);
@@ -32,4 +26,5 @@ void convertPPMToPGM(char* fname) {
 
 	fclose(ppm_fp);
 	fclose(pgm_fp);
+	free(new_fname);
 }
