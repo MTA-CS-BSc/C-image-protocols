@@ -53,25 +53,23 @@ char** createMaskMatrix(int k) {
 	char matrix2[2][2] = { {0, 2}, {3, 1} };
 	char matrix3[3][3] = { {2, 6, 4}, {5, 0, 1}, {8, 3, 7} };
 	char matrix4[4][4] = { {0, 8, 2, 10}, {12, 4, 14, 6}, {3, 11, 1, 9}, {15, 7, 13, 5 } };
-	char*** related_matrix;
+	char* related_matrix;
 
 	switch (k) {
 	case 3:
-		for (int i = 0; i < k; i++)
-			for (int j = 0; j < k; j++)
-				mask_matrix[i][j] = matrix3[i][j];
+		related_matrix = (char*)matrix3;
 		break;
 	case 4:
-		for (int i = 0; i < k; i++)
-			for (int j = 0; j < k; j++)
-				mask_matrix[i][j] = matrix4[i][j];
+		related_matrix = (char*)matrix4;
 		break;
 	default:
-		for (int i = 0; i < k; i++)
-			for (int j = 0; j < k; j++)
-				mask_matrix[i][j] = matrix2[i][j];
+		related_matrix = (char*)matrix2;
 		break;
 	}
+
+	for (int i = 0; i < k; i++)
+		for (int j = 0; j < k; j++)
+			mask_matrix[i][j] = related_matrix[i * k + j];
 
 	return mask_matrix;
 }
