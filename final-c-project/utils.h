@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // For IMG_POS
 #define X 0
@@ -65,6 +66,8 @@ typedef struct img_pos_list {
 
 void memoryAllocFailed();
 void freeMat(char** matrix, int rows);
+char* getFirstTokenUntilDot(char* fname);
+char* createNewFileExtension(char* fname, char* ext);
 void printGrayMatrix(unsigned char** mat, int rows, int cols);
 void printRGBMatrix(RGB** arr, int rows, int cols);
 void skipLine(FILE* fp);

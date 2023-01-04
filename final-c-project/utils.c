@@ -12,6 +12,28 @@ void freeMat(char** matrix, int rows) {
 	free(matrix);
 }
 
+char* getFirstTokenUntilDot(char* fname) {
+	return strtok(fname, ".");
+}
+
+char* createNewFileExtension(char* fname, char* ext) {
+	char* fname_dup = _strdup(fname);
+	char* name_wo_ext = getFirstTokenUntilDot(fname_dup);
+	char* new_file_name = (char*)malloc((strlen(name_wo_ext) + strlen(ext) + 1) * sizeof(char));
+
+	if (!new_file_name)
+		memoryAllocFailed();
+
+	new_file_name[0] = '\0';
+
+	strcat(new_file_name, name_wo_ext);
+	strcat(new_file_name, ext);
+
+	free(fname_dup);
+
+	return new_file_name;
+}
+
 void printGrayMatrix(unsigned char** mat, int rows, int cols) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) 
