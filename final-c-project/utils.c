@@ -1,5 +1,32 @@
 #include "utils.h"
 
+char* readLineFromUser() {
+	char* str;
+	char ch;
+	int physical_size = 0, len = 0;
+
+	str = (char*)malloc(sizeof(char));
+
+	if (!str)
+		memoryAllocFailed();
+
+	scanf(" %c", &ch);
+
+	while (ch != '\n' && ch != '\0') {
+		str = (char*)realloc(str, ++physical_size + 1);
+
+		if (!str)
+			memoryAllocFailed();
+
+		str[len++] = ch;
+		scanf("%c", &ch);
+	}
+
+	str[len] = '\0';
+
+	return str;
+}
+
 void memoryAllocFailed() {
 	printf("Memory allocation failed!\n");
 	exit(1);
