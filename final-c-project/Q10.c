@@ -56,7 +56,7 @@ void convertPPMToPGM_Bin(char* fname) {
 	FILE* ppm_fp = fopen(fname, "rb");
 	char* new_fname = createPgmFileName(fname);
 	FILE* pgm_fp = fopen(new_fname, "wb");
-	COLOR_IMAGE* colorFile = readBinaryPPM(fname);
+	COLOR_IMAGE* color_file = readBinaryPPM(fname);
 
 	readHeaderFromPicFile(ppm_fp, &rows, &cols, &depth);
 
@@ -64,7 +64,7 @@ void convertPPMToPGM_Bin(char* fname) {
 
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
-			gray_level = (colorFile->pixels[i][j].r + colorFile->pixels[i][j].g + colorFile->pixels[i][j].b) / 3;
+			gray_level = (color_file->pixels[i][j].r + color_file->pixels[i][j].g + color_file->pixels[i][j].b) / 3;
 			fwrite(&gray_level, sizeof(unsigned char), 1, pgm_fp);
 		}
 	}
