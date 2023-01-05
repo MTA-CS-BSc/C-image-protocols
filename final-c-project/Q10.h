@@ -6,5 +6,5 @@ void readDataFromBinaryPPM(FILE* fp, COLOR_IMAGE* color_image);
 
 COLOR_IMAGE* readBinaryPPM(char* fname);
 
-void convertPPMToPGMBinary(char* fname);
+void convertPPMToPGM_Bin(char* fname);
 #endif
