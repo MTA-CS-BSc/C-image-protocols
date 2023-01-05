@@ -22,14 +22,14 @@ void readDataFromBinaryPPM(FILE* fp, COLOR_IMAGE* color_image) {
 
 		if (!(color_image->pixels[i]))
 			memoryAllocFailed();
+	}
 
-		
+	for (int i = 0; i < color_image->rows; i++)
+	{
 		for (int j = 0; j < color_image->cols; j++) {
-			//if (j > 0) fseek(fp, -1, SEEK_CUR);
-			fread(&(color_image->pixels[i][j]).r, sizeof(int), 1, fp);
-			fread(&(color_image->pixels[i][j]).g, sizeof(int), 1, fp);
-			fread(&(color_image->pixels[i][j]).b, sizeof(int), 1, fp);
-			//skipWhiteSpaces(fp);
+			fread(&(color_image->pixels[i][j].r), sizeof(unsigned char), 1, fp);
+			fread(&(color_image->pixels[i][j].g), sizeof(unsigned char), 1, fp);
+			fread(&(color_image->pixels[i][j].b), sizeof(unsigned char), 1, fp);
 		}
 
 	}

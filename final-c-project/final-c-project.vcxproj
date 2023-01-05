@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="Q1.c" />
+    <ClCompile Include="Q10.c" />
     <ClCompile Include="Q2.c" />
     <ClCompile Include="Q3.c" />
     <ClCompile Include="Q4.c" />
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Q1.h" />
+    <ClInclude Include="Q10.h" />
     <ClInclude Include="Q2.h" />
     <ClInclude Include="Q3.h" />
     <ClInclude Include="Q4.h" />

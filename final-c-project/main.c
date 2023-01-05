@@ -10,7 +10,7 @@ void main() {
 
 	//convertPGMToBW("pgmTest.txt");
 
-	COLOR_IMAGE* mat = readBinaryPPM("test3.ppm");
+	COLOR_IMAGE* mat = readBinaryPPM("example4p6.ppm");
 
 	printRGBMatrix(mat->pixels, mat->rows, mat->cols);
 	/*IMG_POS_LIST** list = NULL;*/
