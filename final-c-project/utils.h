@@ -68,6 +68,7 @@ void memoryAllocFailed();
 void freeMat(char** matrix, int rows);
 char* getFirstTokenUntilDot(char* fname);
 char* createNewFileExtension(char* fname, char* ext);
+char* createPgmFileName(char* fname);
 void printGrayMatrix(unsigned char** mat, int rows, int cols);
 void printRGBMatrix(RGB** arr, int rows, int cols);
 void skipLine(FILE* fp);

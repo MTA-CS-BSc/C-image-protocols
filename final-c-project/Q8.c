@@ -1,9 +1,5 @@
 #include "Q8.h"
 
-char* createPgmFileName(char* fname) {
-	return createNewFileExtension(fname, ".pgm");
-}
-
 void convertPPMToPGM(char* fname) {
 	int rows, cols, depth;
 	char gray_level;

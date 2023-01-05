@@ -34,6 +34,10 @@ char* createNewFileExtension(char* fname, char* ext) {
 	return new_file_name;
 }
 
+char* createPgmFileName(char* fname) {
+	return createNewFileExtension(fname, ".pgm");
+}
+
 void printGrayMatrix(unsigned char** mat, int rows, int cols) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) 

@@ -1,16 +1,5 @@
 #include "Q10.h"
 
-void skipWhiteSpaces(FILE* fp) {
-	char current_char;
-
-	fread(&current_char, sizeof(char), 1, fp);
-
-	while (current_char == '\0')
-		fread(&current_char, sizeof(char), 1, fp);
-
-	fseek(fp, -1, SEEK_CUR);
-}
-
 void readDataFromBinaryPPM(FILE* fp, COLOR_IMAGE* color_image) {
 	color_image->pixels = (RGB**)malloc(sizeof(RGB*) * color_image->rows);
 
@@ -59,4 +48,28 @@ COLOR_IMAGE* readBinaryPPM(char* fname) {
 	fclose(fp);
 
 	return color_image;
+}
+
+void convertPPMToPGMBinary(char* fname) {
+	int rows, cols, depth;
+	char gray_level;
+	FILE* ppm_fp = fopen(fname, "rb");
+	char* new_fname = createPgmFileName(fname);
+	FILE* pgm_fp = fopen(new_fname, "wb");
+	COLOR_IMAGE* colorFile = readBinaryPPM(fname);
+
+	readHeaderFromPicFile(ppm_fp, &rows, &cols, &depth);
+
+	fprintf(pgm_fp, "P5\n%d %d\n%d\n", rows, cols, depth);
+
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			gray_level = (colorFile->pixels[i][j].r + colorFile->pixels[i][j].g + colorFile->pixels[i][j].b) / 3;
+			fwrite(&gray_level, sizeof(unsigned char), 1, pgm_fp);
+		}
+	}
+
+	fclose(ppm_fp);
+	fclose(pgm_fp);
+	free(new_fname);
 }
