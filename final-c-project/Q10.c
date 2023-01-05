@@ -1,16 +1,5 @@
 #include "Q10.h"
 
-void skipWhiteSpaces(FILE* fp) {
-	char current_char;
-
-	fread(&current_char, sizeof(char), 1, fp);
-
-	while (current_char == '\0')
-		fread(&current_char, sizeof(char), 1, fp);
-
-	fseek(fp, -1, SEEK_CUR);
-}
-
 void readDataFromBinaryPPM(FILE* fp, COLOR_IMAGE* color_image) {
 	color_image->pixels = (RGB**)malloc(sizeof(RGB*) * color_image->rows);
 
