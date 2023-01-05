@@ -154,7 +154,7 @@ void readHeaderFromPicFile(FILE* fp, int* rows, int* cols, int* depth) {
 		
 	current_char = fgetc(fp);
 	
-	if (current_char == '2' || current_char == '3') {
+	//if (current_char == '2' || current_char == '3') {
 		skipUntilOk(fp);
 
 		fscanf(fp, "%d %d", cols, rows);
@@ -164,7 +164,7 @@ void readHeaderFromPicFile(FILE* fp, int* rows, int* cols, int* depth) {
 		fscanf(fp, "%d", depth);
 
 		skipUntilOk(fp);
-	}
+	//}
 }
 
 void insertNodeToEndTNodeList(TNODE_LIST* list, TNODE_LNODE* node) {
