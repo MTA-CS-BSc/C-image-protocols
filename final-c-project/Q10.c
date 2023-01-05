@@ -50,7 +50,7 @@ COLOR_IMAGE* readBinaryPPM(char* fname) {
 	return color_image;
 }
 
-void convertPPMToPGMBinary(char* fname) {
+void convertPPMToPGM_Bin(char* fname) {
 	int rows, cols, depth;
 	char gray_level;
 	FILE* ppm_fp = fopen(fname, "rb");
