@@ -34,6 +34,10 @@ char* createNewFileExtension(char* fname, char* ext) {
 	return new_file_name;
 }
 
+char* createPgmFileName(char* fname) {
+	return createNewFileExtension(fname, ".pgm");
+}
+
 void printGrayMatrix(unsigned char** mat, int rows, int cols) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) 
@@ -154,7 +158,7 @@ void readHeaderFromPicFile(FILE* fp, int* rows, int* cols, int* depth) {
 		
 	current_char = fgetc(fp);
 	
-	if (current_char == '2' || current_char == '3') {
+	//if (current_char == '2' || current_char == '3') {
 		skipUntilOk(fp);
 
 		fscanf(fp, "%d %d", cols, rows);
@@ -164,7 +168,7 @@ void readHeaderFromPicFile(FILE* fp, int* rows, int* cols, int* depth) {
 		fscanf(fp, "%d", depth);
 
 		skipUntilOk(fp);
-	}
+	//}
 }
 
 void insertNodeToEndTNodeList(TNODE_LIST* list, TNODE_LNODE* node) {
