@@ -28,7 +28,7 @@ void main() {
 			p2_with_same_gray_level = colorWithSameGrayLevel(&segments, p2_image, &segments_amount, &gray_level);
 			break;
 		case 5:
-			// Another function!! IMPLEMENT
+			saveSameGrayColoredToPgm(p2_with_same_gray_level, &segments, p2_image, &segments_amount, &gray_level);
 			break;
 		case 6:
 			// Q6
@@ -37,16 +37,16 @@ void main() {
 			// Q7
 			break;
 		case 8:
-			// Q8
+			convertP3ToP2();
 			break;
 		case 9:
-			// Q9
+			convertP2ToBW();
 			break;
 		case 10:
-			// Q10
+			convertP6ToP5();
 			break;
 		case 11:
-			// Q11
+			convertP5ToBW();
 			break;
 		default:
 			printf("Option not in range!\n");
@@ -58,4 +58,8 @@ void main() {
 	
 	}
 
+	freeMat(p2_image->pixels, p2_image->rows);
+	freeMat(p2_with_same_gray_level->pixels, p2_with_same_gray_level->cols);
+	freeRGBMat(p3_image->pixels, p3_image->rows);
+	free(segments);
 }

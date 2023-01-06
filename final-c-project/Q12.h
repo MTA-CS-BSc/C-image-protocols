@@ -25,4 +25,8 @@ void saveGrayImageToP2(GRAY_IMAGE* p2_with_same_gray_level,
 void saveSameGrayColoredToPgm(GRAY_IMAGE* p2_with_same_gray_level,
 	IMG_POS_LIST** segments, GRAY_IMAGE* p2_image,
 	int* segments_amount);
+void convertP3ToP2();
+void convertP2ToBW();
+void convertP6ToP5();
+void convertP5ToBW();
 #endif

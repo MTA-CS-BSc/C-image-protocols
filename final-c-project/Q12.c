@@ -96,3 +96,39 @@ void saveSameGrayColoredToPgm(GRAY_IMAGE* p2_with_same_gray_level,
 
 	free(file_name);
 }
+
+void convertP3ToP2() {
+	char* file_name;
+	printf("Please enter a file name of P3 file:\n");
+	file_name = readLineFromUser();
+
+	convertPPMToPGM(file_name);
+	free(file_name);
+}
+
+void convertP2ToBW() {
+	char* file_name;
+	printf("Please enter a file name of P2 file:\n");
+	file_name = readLineFromUser();
+
+	convertPGMToBW(file_name);
+	free(file_name);
+}
+
+void convertP6ToP5() {
+	char* file_name;
+	printf("Please enter a file name of P6 file:\n");
+	file_name = readLineFromUser();
+
+	convertPPMToPGM_Bin(file_name);
+	free(file_name);
+}
+
+void convertP5ToBW() {
+	char* file_name;
+	printf("Please enter a file name of P5 file:\n");
+	file_name = readLineFromUser();
+
+	convertPGMToBW_Bin(file_name);
+	free(file_name);	
+}
