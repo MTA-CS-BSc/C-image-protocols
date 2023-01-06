@@ -48,7 +48,7 @@ char** createMaskMatrix(int k) {
 	return mask_matrix;
 }
 
-void writeMatrixToFile(FILE* fp, char** mat, int rows, int cols) {
+void writeMatrixToFile(FILE* fp, unsigned char** mat, int rows, int cols) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++)
 			fprintf(fp, "%d ", mat[i][j]);
@@ -57,7 +57,7 @@ void writeMatrixToFile(FILE* fp, char** mat, int rows, int cols) {
 	}
 }
 
-void updateMat(char** new_vals, char current_val, char **mask_matrix, int start_x, int i, int start_y, int j) {
+void updateMat(unsigned char** new_vals, char current_val, char **mask_matrix, int start_x, int i, int start_y, int j) {
 	if (current_val > mask_matrix[i][j])
 		new_vals[start_x + i][start_y + j] = 1;
 
@@ -65,7 +65,7 @@ void updateMat(char** new_vals, char current_val, char **mask_matrix, int start_
 		new_vals[start_x + i][start_y + j] = 0;
 }
 
-void updateNewValsMatrix(GRAY_IMAGE* gray_image, int depth, int start_x, int start_y, int k, char** new_vals) {
+void updateNewValsMatrix(GRAY_IMAGE* gray_image, int depth, int start_x, int start_y, int k, unsigned char** new_vals) {
 	int divider = (int)ceil((double)depth / (k * k)), current_val;
 	char** mask_matrix = createMaskMatrix(k);
 
@@ -83,7 +83,7 @@ void updateNewValsMatrix(GRAY_IMAGE* gray_image, int depth, int start_x, int sta
 
 void convertPGMToBW(char* fname) {
 	int rows, cols, depth;
-	char** new_vals;
+	unsigned char** new_vals;
 	GRAY_IMAGE* gray_image = readPGM(fname);
 	FILE* orig_f = fopen(fname, "r");
 
