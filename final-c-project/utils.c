@@ -32,6 +32,13 @@ void memoryAllocFailed() {
 	exit(1);
 }
 
+void freeRGBMat(RGB** matrix, int rows) {
+	for (int i = 0; i < rows; i++)
+		free(matrix[i]);
+
+	free(matrix);
+}
+
 void freeMat(char** matrix, int rows) {
 	for (int i = 0; i < rows; i++)
 		free(matrix[i]);

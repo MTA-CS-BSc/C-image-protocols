@@ -13,7 +13,9 @@ COLOR_IMAGE* readP3Image() {
 	file_name = readLineFromUser();
 
 	color_image = readPPM(file_name);
+
 	free(file_name);
+
 	return color_image;
 }
 
@@ -24,7 +26,9 @@ GRAY_IMAGE* readP2Image() {
 	file_name = readLineFromUser();
 
 	gray_image = readPPM(file_name);
+
 	free(file_name);
+
 	return gray_image;
 }
 
@@ -53,4 +57,42 @@ GRAY_IMAGE* colorWithSameGrayLevel(IMG_POS_LIST** segments, GRAY_IMAGE* p2_image
 	image_with_same_gray_level = colorSegments(*segments, (unsigned int)(*segments_amount));
 
 	return image_with_same_gray_level;
+}
+
+void saveGrayImageToP2(GRAY_IMAGE* p2_with_same_gray_level,
+	char* file_name) {
+	FILE* pgm_fp = fopen(file_name, "w");
+	int depth = 255;
+
+	fprintf(pgm_fp, "P2\n%d %d\n%d\n", p2_with_same_gray_level->rows,
+		p2_with_same_gray_level->cols, depth);
+
+	for (int i = 0; i < p2_with_same_gray_level->rows; i++) {
+		for (int j = 0; j < p2_with_same_gray_level->cols; j++) {
+			fprintf(pgm_fp, "%d ", p2_with_same_gray_level->pixels[i][j]);
+		}
+
+		fputc('\n', pgm_fp);
+	}
+
+	fclose(pgm_fp);
+}
+
+void saveSameGrayColoredToPgm(GRAY_IMAGE* p2_with_same_gray_level,
+	IMG_POS_LIST** segments, GRAY_IMAGE* p2_image,
+	int* segments_amount) {
+	char* file_name;
+
+	if (!p2_with_same_gray_level) {
+		printf("No colored image found. Attempting to color...\n");
+		p2_with_same_gray_level = colorWithSameGrayLevel(segments,
+			p2_image, segments_amount);
+	}
+
+	printf("Please enter desired file name (including .pgm):\n");
+	file_name = readLineFromUser();
+
+	saveGrayImageToP2(p2_with_same_gray_level, file_name);
+
+	free(file_name);
 }

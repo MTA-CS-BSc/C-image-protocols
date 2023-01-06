@@ -66,6 +66,7 @@ typedef struct img_pos_list {
 
 char* readLineFromUser();
 void memoryAllocFailed();
+void freeRGBMat(RGB** matrix, int rows);
 void freeMat(char** matrix, int rows);
 char* getFirstTokenUntilDot(char* fname);
 char* createNewFileExtension(char* fname, char* ext);
