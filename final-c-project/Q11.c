@@ -61,13 +61,13 @@ void convertPGMToBW_Bin(char* fname) {
 	FILE* orig_f = fopen(fname, "rb");
 
 	readHeaderFromPicFile(orig_f, &rows, &cols, &depth);
-	new_vals = createMatrix(rows, cols);
 
 	for (int k = 2; k <= 4; k++) {
+		new_vals = createMatrix(rows, cols);
 		char* k_file_name = get_bw_file_name(fname, k);
-		FILE* bw_fp = fopen(k_file_name, "w");
+		FILE* bw_fp = fopen(k_file_name, "wb");
 
-		fprintf(bw_fp, "P2\n%d %d\n%d\n", rows, cols, depth);
+		fprintf(bw_fp, "P5\n%d %d\n%d\n", rows, cols, 1);
 
 		for (int i = 0; i < rows; i += k)
 			for (int j = 0; j < cols; j += k)
@@ -76,7 +76,6 @@ void convertPGMToBW_Bin(char* fname) {
 		writeMatrixToBinaryFile(bw_fp, new_vals, rows, cols);
 		fclose(bw_fp);
 		free(k_file_name);
+		freeMat(new_vals, rows);
 	}
-
-	freeMat(new_vals, rows);
 }
