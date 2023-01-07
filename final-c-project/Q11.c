@@ -67,7 +67,7 @@ void convertPGMToBW_Bin(char* fname) {
 		char* k_file_name = get_bw_file_name(fname, k);
 		FILE* bw_fp = fopen(k_file_name, "wb");
 
-		fprintf(bw_fp, "P5\n%d %d\n%d\n", rows, cols, 1);
+		fprintf(bw_fp, "P5\n%d %d\n%d\n", rows, cols, depth);
 
 		for (int i = 0; i < rows; i += k)
 			for (int j = 0; j < cols; j += k)
