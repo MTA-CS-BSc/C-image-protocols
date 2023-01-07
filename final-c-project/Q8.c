@@ -10,7 +10,7 @@ void convertPPMToPGM(char* fname) {
 
 	readHeaderFromPicFile(ppm_fp, &rows, &cols, &depth);
 	
-	fprintf(pgm_fp, "P3\n%d %d\n%d\n", rows, cols, depth);
+	fprintf(pgm_fp, "P2\n%d %d\n%d\n", rows, cols, depth);
 
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
