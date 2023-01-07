@@ -66,7 +66,7 @@ void updateMat(unsigned char** new_vals, char current_val, char **mask_matrix, i
 }
 
 void updateNewValsMatrix(GRAY_IMAGE* gray_image, int depth, int start_x, int start_y, int k, unsigned char** new_vals) {
-	int divider = (int)ceil((double)depth / (k * k)), current_val;
+	int divider = (int)(ceil((double)depth / (k * k))), current_val;
 	char** mask_matrix = createMaskMatrix(k);
 
 	for (int i = 0; i < k; i++) {
@@ -88,13 +88,13 @@ void convertPGMToBW(char* fname) {
 	FILE* orig_f = fopen(fname, "r");
 
 	readHeaderFromPicFile(orig_f, &rows, &cols, &depth);
-	new_vals = createMatrix(rows, cols);
 
 	for (int k = 2; k <= 4; k++) {
+		new_vals = createMatrix(rows, cols);
 		char* k_file_name = get_bw_file_name(fname, k);
 		FILE* bw_fp = fopen(k_file_name, "w");
 
-		fprintf(bw_fp, "P2\n%d %d\n%d\n", rows, cols, depth);
+		fprintf(bw_fp, "P2\n%d %d\n%d\n", rows, cols, 1);
 
 		for (int i = 0; i < rows; i += k)
 			for (int j = 0; j < cols; j += k)
@@ -103,7 +103,6 @@ void convertPGMToBW(char* fname) {
 		writeMatrixToFile(bw_fp, new_vals, rows, cols);
 		fclose(bw_fp);
 		free(k_file_name);
-	}	
-
-	freeMat(new_vals, rows);
+		freeMat(new_vals, rows);
+	}
 }
