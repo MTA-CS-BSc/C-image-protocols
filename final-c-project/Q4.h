@@ -13,5 +13,4 @@ IMG_POS_LIST getImgPosListFromSegment(TNODE* segment_root);
 // Finds and updates the segments array using it's reference with all of the image's segments.
 // Returns the amount of segments found.
 int findAllSegments(GRAY_IMAGE* img, unsigned char threshold, IMG_POS_LIST** segments);
-
 #endif
