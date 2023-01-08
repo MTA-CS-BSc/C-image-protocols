@@ -19,9 +19,7 @@ void readDataFromPGM(FILE* fp, GRAY_IMAGE* gray_image, bool is_ascii) {
 			else
 				fread(&(gray_image->pixels[i][j]), sizeof(unsigned char), 1, fp);
 		}
-
 	}
-
 }
 
 GRAY_IMAGE* readPGMGeneric(char* fname, bool is_ascii) {
@@ -42,6 +40,7 @@ GRAY_IMAGE* readPGMGeneric(char* fname, bool is_ascii) {
 
 	gray_image->cols = cols;
 	gray_image->rows = rows;
+	gray_image->pixels = NULL;
 
 	readDataFromPGM(fp, gray_image, is_ascii);
 

@@ -44,6 +44,7 @@ COLOR_IMAGE* readPPMGeneric(char* fname, bool is_ascii) {
 
 	color_image->cols = cols;
 	color_image->rows = rows;
+	color_image->pixels = NULL;
 
 	readDataFromPPM(fp, color_image, is_ascii);
 
