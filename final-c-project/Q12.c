@@ -12,8 +12,14 @@ COLOR_IMAGE* readP3Image() {
 	printf("Please enter a P3 PPM file name:\n");
 	file_name = readLineFromUser();
 
-	color_image = readPPM(file_name);
+	if (!isExtensionValid(file_name, "ppm"))
+		printf("Extension not valid!\n\n");
 
+	else {
+		color_image = readPPM(file_name);
+		printf("Completed!\n\n");
+	}
+	
 	free(file_name);
 
 	return color_image;
@@ -25,7 +31,13 @@ GRAY_IMAGE* readP2Image() {
 	printf("Please enter a P2 PGM file name:\n");
 	file_name = readLineFromUser();
 
-	gray_image = readPPM(file_name);
+	if (!isExtensionValid(file_name, "pgm"))
+		printf("Extension not valid!\n\n");
+
+	else {
+		gray_image = readPPM(file_name);
+		printf("Completed!\n\n");
+	}
 
 	free(file_name);
 
@@ -92,7 +104,13 @@ void saveSameGrayColoredToPgm(GRAY_IMAGE* p2_with_same_gray_level,
 	printf("Please enter the desired PGM file name (including .pgm):\n");
 	file_name = readLineFromUser();
 
-	saveGrayImageToP2(p2_with_same_gray_level, file_name);
+	if (!isExtensionValid(file_name, "pgm"))
+		printf("Extension not valid!\n\n");
+
+	else {
+		saveGrayImageToP2(p2_with_same_gray_level, file_name);
+		printf("Completed!\n\n");
+	}
 
 	free(file_name);
 }
