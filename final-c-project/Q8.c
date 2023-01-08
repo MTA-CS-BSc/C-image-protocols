@@ -5,7 +5,7 @@ void convertPPMToPGMGeneric(char* fname, bool is_ascii) {
 	char* new_fname = createPgmFileName(fname), gray_level;
 	FILE* ppm_fp = fopen(fname, is_ascii ? "r" : "rb");
 	FILE* pgm_fp = fopen(new_fname, is_ascii ? "w" : "wb");
-	COLOR_IMAGE* color_file = readPPMGeneric(fname, false);
+	COLOR_IMAGE* color_file = readPPMGeneric(fname, is_ascii);
 
 	readHeaderFromPicFile(ppm_fp, &rows, &cols, &depth);
 
