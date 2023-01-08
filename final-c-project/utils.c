@@ -139,10 +139,13 @@ char** createMatrix(int rows, int cols) {
 		memoryAllocFailed();
 
 	for (int i = 0; i < rows; i++) {
-		new_vals[i] = (char*)malloc(sizeof(char) * cols);
+		new_vals[i] = (char*)malloc(cols * sizeof(char));
 
 		if (!new_vals[i])
 			memoryAllocFailed();
+
+		for (int j = 0; j < cols; j++)
+			new_vals[i][j] = 0;
 	}
 
 	return new_vals;
