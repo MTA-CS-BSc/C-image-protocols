@@ -2,12 +2,22 @@
 #define __MATRICES_UTILS_H
 #include "utils.h"
 
+// Receives a matrix and it's size. Frees it's values.
 void freeRGBMat(RGB** matrix, int rows);
+
+// Receives a matrix and it's size. Frees it's values.
 void freeMat(char** matrix, int rows);
+
+// Receives a matrix and it's size. Frees it's values.
 void freePixelsFlags(bool** flags, int rows);
-void printGrayMatrix(unsigned char** mat, int rows, int cols);
-void printRGBMatrix(RGB** arr, int rows, int cols);
+
+//void printGrayMatrix(unsigned char** mat, int rows, int cols);
+//void printRGBMatrix(RGB** arr, int rows, int cols);
+
+// Receives rows and cols amounts and returns a char matrix of the given size.
 char** createMatrix(int rows, int cols);
+
+// Receives a gray image reference and creates a pixels flags matrix according to the image's rows and cols amount.
 bool** createPixelsFlagsMatrix(GRAY_IMAGE* img);
 
 // Receives a segments list ref, it's size, and refs for rows and cols to update.

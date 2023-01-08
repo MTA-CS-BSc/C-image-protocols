@@ -21,23 +21,23 @@ void freePixelsFlags(bool** flags, int rows) {
 	free(flags);
 }
 
-void printGrayMatrix(unsigned char** mat, int rows, int cols) {
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++)
-			printf("%d ", mat[i][j]);
-
-		printf("\n");
-	}
-}
-
-void printRGBMatrix(RGB** arr, int rows, int cols) {
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++)
-			printf("%d %d %d\t", arr[i][j].r, arr[i][j].g, arr[i][j].b);
-
-		printf("\n");
-	}
-}
+//void printGrayMatrix(unsigned char** mat, int rows, int cols) {
+//	for (int i = 0; i < rows; i++) {
+//		for (int j = 0; j < cols; j++)
+//			printf("%d ", mat[i][j]);
+//
+//		printf("\n");
+//	}
+//}
+//
+//void printRGBMatrix(RGB** arr, int rows, int cols) {
+//	for (int i = 0; i < rows; i++) {
+//		for (int j = 0; j < cols; j++)
+//			printf("%d %d %d\t", arr[i][j].r, arr[i][j].g, arr[i][j].b);
+//
+//		printf("\n");
+//	}
+//}
 
 char** createMatrix(int rows, int cols) {
 	char** new_vals = (char**)malloc(sizeof(char*) * rows);
