@@ -7,7 +7,7 @@ void printMenu() {
 }
 
 COLOR_IMAGE* readP3Image() {
-	COLOR_IMAGE* color_image;
+	COLOR_IMAGE* color_image = NULL;
 	char* file_name;
 	printf("Please enter a P3 PPM file name:\n");
 	file_name = readLineFromUser();
@@ -26,7 +26,7 @@ COLOR_IMAGE* readP3Image() {
 }
 
 GRAY_IMAGE* readP2Image() {
-	GRAY_IMAGE* gray_image;
+	GRAY_IMAGE* gray_image = NULL;
 	char* file_name;
 	printf("Please enter a P2 PGM file name:\n");
 	file_name = readLineFromUser();
@@ -35,7 +35,7 @@ GRAY_IMAGE* readP2Image() {
 		printf("Extension not valid!\n\n");
 
 	else {
-		gray_image = readPPM(file_name);
+		gray_image = readPGM(file_name);
 		printf("Completed!\n\n");
 	}
 
@@ -51,22 +51,29 @@ void findSegments(IMG_POS_LIST** segments, GRAY_IMAGE* p2_image, int* segments_a
 		p2_image = readP2Image();
 	}
 
-	printf("Please enter the threshold:\n");
-	scanf("%u", &threshold);
+	if (p2_image) {
+		printf("Please enter the threshold:\n");
+		scanf("%u", &threshold);
 
-	*segments_amount = findAllSegments(p2_image, threshold, segments);
+		*segments_amount = findAllSegments(p2_image, threshold, segments);
+
+		printf("Completed!\n\n");
+	}
 }
 
 GRAY_IMAGE* colorWithSameGrayLevel(IMG_POS_LIST** segments, GRAY_IMAGE* p2_image,
 	int* segments_amount) {
-	GRAY_IMAGE* image_with_same_gray_level;
+	GRAY_IMAGE* image_with_same_gray_level = NULL;
 
 	if (!(*segments)) {
 		printf("No segments loaded! Attempting to load segments...\n");
 		findSegments(segments, p2_image, segments_amount);
 	}
 
-	image_with_same_gray_level = colorSegments(*segments, (unsigned int)(*segments_amount));
+	if (*segments) {
+		image_with_same_gray_level = colorSegments(*segments, (unsigned int)(*segments_amount));
+		printf("Completed!\n\n");
+	}
 
 	return image_with_same_gray_level;
 }
@@ -101,18 +108,20 @@ void saveSameGrayColoredToPgm(GRAY_IMAGE* p2_with_same_gray_level,
 			p2_image, segments_amount);
 	}
 
-	printf("Please enter the desired PGM file name (including .pgm):\n");
-	file_name = readLineFromUser();
+	if (p2_with_same_gray_level) {
+		printf("Please enter the desired PGM file name (including .pgm):\n");
+		file_name = readLineFromUser();
 
-	if (!isExtensionValid(file_name, "pgm"))
-		printf("Extension not valid!\n\n");
+		if (!isExtensionValid(file_name, "pgm"))
+			printf("Extension not valid!\n\n");
 
-	else {
-		saveGrayImageToP2(p2_with_same_gray_level, file_name);
-		printf("Completed!\n\n");
+		else {
+			saveGrayImageToP2(p2_with_same_gray_level, file_name);
+			printf("Completed!\n\n");
+		}
+
+		free(file_name);
 	}
-
-	free(file_name);
 }
 
 void convertP3ToP2() {
@@ -127,7 +136,6 @@ void convertP3ToP2() {
 		convertPPMToPGM(file_name);
 		printf("Completed!\n\n");
 	}
-		
 
 	free(file_name);
 }

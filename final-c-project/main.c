@@ -7,7 +7,6 @@ void main() {
 	IMG_POS_LIST* segments = NULL;
 	int segments_amount;
 	int threshold;
-	int gray_level;
 	char desired_action = 0;
 
 	printMenu();
@@ -26,10 +25,10 @@ void main() {
 			findSegments(&segments, p2_image, &segments_amount);
 			break;
 		case 4:
-			p2_with_same_gray_level = colorWithSameGrayLevel(&segments, p2_image, &segments_amount, &gray_level);
+			p2_with_same_gray_level = colorWithSameGrayLevel(&segments, p2_image, &segments_amount);
 			break;
 		case 5:
-			saveSameGrayColoredToPgm(p2_with_same_gray_level, &segments, p2_image, &segments_amount, &gray_level);
+			saveSameGrayColoredToPgm(p2_with_same_gray_level, &segments, p2_image, &segments_amount);
 			break;
 		case 6:
 			// Q6
