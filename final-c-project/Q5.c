@@ -38,6 +38,9 @@ void allocatePixelsMatrix(GRAY_IMAGE* img) {
 
 		if (!img->pixels[i])
 			memoryAllocFailed();
+
+		for (int j = 0; j < img->cols; j++)
+			img->pixels[i][j] = 0;
 	}
 }
 
