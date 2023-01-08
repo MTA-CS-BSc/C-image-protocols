@@ -192,17 +192,15 @@ void readHeaderFromPicFile(FILE* fp, int* rows, int* cols, int* depth) {
 		
 	current_char = fgetc(fp);
 	
-	//if (current_char == '2' || current_char == '3') {
-		skipUntilOk(fp);
+	skipUntilOk(fp);
 
-		fscanf(fp, "%d %d", cols, rows);
+	fscanf(fp, "%d %d", cols, rows);
 
-		skipUntilOk(fp);
+	skipUntilOk(fp);
 
-		fscanf(fp, "%d", depth);
+	fscanf(fp, "%d", depth);
 
-		skipUntilOk(fp);
-	//}
+	skipUntilOk(fp);
 }
 
 void insertNodeToEndTNodeList(TNODE_LIST* list, TNODE_LNODE* node) {
@@ -287,140 +285,16 @@ void freePixelsFlags(bool** flags, int rows, int cols) {
 	free(flags);
 }
 
+bool isExtensionValid(char* fname, char* extension) {
+	bool flag = false;
+	char* dup = _strdup(fname);
+	char* token = strtok(dup, ".");
+	token = strtok(NULL, ".");
 
-void readDataFromPPM(FILE* fp, COLOR_IMAGE* color_image, bool is_ascii) {
-	color_image->pixels = (RGB**)malloc(sizeof(RGB*) * color_image->rows);
+	if (token && strcmp(token, extension) == 0)
+		flag = true;
 
-	if (!(color_image->pixels))
-		memoryAllocFailed();
+	free(dup);
+	return flag;
 
-	for (int i = 0; i < color_image->rows; i++) {
-		color_image->pixels[i] = (RGB*)malloc(sizeof(RGB) * color_image->cols);
-
-		if (!(color_image->pixels[i]))
-			memoryAllocFailed();
-
-		for (int j = 0; j < color_image->cols; j++) {
-			if (is_ascii)
-				fscanf(fp, "%d %d %d", &(color_image->pixels[i][j]).r, &(color_image->pixels[i][j]).g, &(color_image->pixels[i][j]).b);
-
-			else {
-				fread(&(color_image->pixels[i][j].r), sizeof(unsigned char), 1, fp);
-				fread(&(color_image->pixels[i][j].g), sizeof(unsigned char), 1, fp);
-				fread(&(color_image->pixels[i][j].b), sizeof(unsigned char), 1, fp);
-			}
-		}
-			
-	}		
-}
-
-COLOR_IMAGE* readPPMGeneric(char* fname, bool is_ascii) {
-	FILE* fp = fopen(fname, is_ascii ? "r" : "rb");
-	char current_char;
-	int cols, rows, depth;
-	COLOR_IMAGE* color_image = (COLOR_IMAGE*)malloc(sizeof(COLOR_IMAGE));
-
-	if (!color_image)
-		memoryAllocFailed();
-
-	if (!fp) {
-		printf("Couldn't read file!\n");
-		exit(1);
-	}
-
-	readHeaderFromPicFile(fp, &rows, &cols, &depth);
-
-	color_image->cols = cols;
-	color_image->rows = rows;
-
-	readDataFromPPM(fp, color_image, is_ascii);
-
-	fclose(fp);
-
-	return color_image;
-}
-
-void readDataFromPGM(FILE* fp, GRAY_IMAGE* gray_image, bool is_ascii) {
-	gray_image->pixels = (unsigned char**)malloc(sizeof(unsigned char*) * gray_image->rows);
-
-	if (!(gray_image->pixels))
-		memoryAllocFailed();
-
-	for (int i = 0; i < gray_image->rows; i++) {
-		gray_image->pixels[i] = (unsigned char*)malloc(sizeof(unsigned char) * gray_image->cols);
-
-		if (!(gray_image->pixels[i]))
-			memoryAllocFailed();
-
-		for (int j = 0; j < gray_image->cols; j++) {
-			if (is_ascii)
-				fscanf(fp, "%d", &(gray_image->pixels[i][j]));
-
-			else
-				fread(&(gray_image->pixels[i][j]), sizeof(unsigned char), 1, fp);
-		}
-
-	}
-
-}
-
-GRAY_IMAGE* readPGMGeneric(char* fname, bool is_ascii) {
-	FILE* fp = fopen(fname, is_ascii ? "r" : "rb");
-	char current_char;
-	int cols, rows, depth;
-	GRAY_IMAGE* gray_image = (GRAY_IMAGE*)malloc(sizeof(GRAY_IMAGE));
-
-	if (!gray_image)
-		memoryAllocFailed();
-
-	if (!fp) {
-		printf("Couldn't read file!\n");
-		exit(1);
-	}
-
-	readHeaderFromPicFile(fp, &rows, &cols, &depth);
-
-	gray_image->cols = cols;
-	gray_image->rows = rows;
-
-	readDataFromPGM(fp, gray_image, is_ascii);
-
-	fclose(fp);
-
-	return gray_image;
-}
-
-void convertPPMToPGMGeneric(char* fname, bool is_ascii) {
-	int rows, cols, depth;
-	char* new_fname = createPgmFileName(fname), gray_level;
-	FILE* ppm_fp = fopen(fname, is_ascii ? "r" : "rb");
-	FILE* pgm_fp = fopen(new_fname, is_ascii ? "w" : "wb");
-	COLOR_IMAGE* color_file = readPPMGeneric(fname, false);
-
-	readHeaderFromPicFile(ppm_fp, &rows, &cols, &depth);
-
-	if (is_ascii)
-		fprintf(pgm_fp, "P2\n%d %d\n%d\n", rows, cols, depth);
-
-	else
-		fprintf(pgm_fp, "P5\n%d %d\n%d\n", rows, cols, depth);
-
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++) {
-			gray_level = (color_file->pixels[i][j].r + color_file->pixels[i][j].g + color_file->pixels[i][j].b) / 3;
-
-			if (is_ascii)
-				fprintf(pgm_fp, "%d ", gray_level);
-
-			else
-				fwrite(&gray_level, sizeof(unsigned char), 1, pgm_fp);
-		}
-
-		if (is_ascii)
-			fputc('\n', pgm_fp);
-	}
-
-	fclose(ppm_fp);
-	fclose(pgm_fp);
-	free(new_fname);
 }

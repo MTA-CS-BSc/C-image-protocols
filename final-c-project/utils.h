@@ -69,6 +69,7 @@ char* readLineFromUser();
 void memoryAllocFailed();
 void freeRGBMat(RGB** matrix, int rows);
 void freeMat(char** matrix, int rows);
+void freePixelsFlags(bool** flags, int rows, int cols);
 char* getFirstTokenUntilDot(char* fname);
 char* createNewFileExtension(char* fname, char* ext);
 char* createPgmFileName(char* fname);
@@ -93,9 +94,5 @@ void insertNodeToEndImgPosList(IMG_POS_LIST* list, IMG_POS_NODE* node);
 void insertDataToEndImgPosList(IMG_POS_LIST* list, IMG_POS data);
 bool checkIfTresholdOk(GRAY_IMAGE* img, IMG_POS n1, IMG_POS n2, int threshold);
 bool isInRange(int row, int col, GRAY_IMAGE* img);
-void freePixelsFlags(bool** flags, int rows, int cols);
-void readDataFromPPM(FILE* fp, COLOR_IMAGE* color_image, bool is_ascii);
-COLOR_IMAGE* readPPMGeneric(char* fname, bool is_ascii);
-GRAY_IMAGE* readPGMGeneric(char* fname, bool is_ascii);
-void convertPPMToPGMGeneric(char* fname, bool is_ascii);
+bool isExtensionValid(char* fname, char* extension);
 #endif
