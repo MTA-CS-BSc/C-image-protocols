@@ -89,7 +89,7 @@ void saveSameGrayColoredToPgm(GRAY_IMAGE* p2_with_same_gray_level,
 			p2_image, segments_amount);
 	}
 
-	printf("Please enter desired file name (including .pgm):\n");
+	printf("Please enter the desired PGM file name (including .pgm):\n");
 	file_name = readLineFromUser();
 
 	saveGrayImageToP2(p2_with_same_gray_level, file_name);
@@ -99,36 +99,65 @@ void saveSameGrayColoredToPgm(GRAY_IMAGE* p2_with_same_gray_level,
 
 void convertP3ToP2() {
 	char* file_name;
-	printf("Please enter a file name of P3 file:\n");
+	printf("Please enter a file name of P3 file (including .ppm):\n");
 	file_name = readLineFromUser();
+	
+	if (!isExtensionValid(file_name, "ppm"))
+		printf("Extension not valid!\n\n");
+	
+	else {
+		convertPPMToPGM(file_name);
+		printf("Completed!\n\n");
+	}
+		
 
-	convertPPMToPGM(file_name);
 	free(file_name);
 }
 
 void convertP2ToBW() {
 	char* file_name;
-	printf("Please enter a file name of P2 file:\n");
+	printf("Please enter a file name of P2 file (including .pgm):\n");
 	file_name = readLineFromUser();
 
-	convertPGMToBW(file_name);
+	if (!isExtensionValid(file_name, "pgm"))
+		printf("Extension not valid!\n\n");
+
+	else {
+		convertPGMToBW(file_name);
+		printf("Completed!\n\n");
+	}
+
 	free(file_name);
 }
 
 void convertP6ToP5() {
 	char* file_name;
-	printf("Please enter a file name of P6 file:\n");
+	printf("Please enter a file name of P6 file (including .ppm):\n");
 	file_name = readLineFromUser();
 
-	convertPPMToPGM_Bin(file_name);
+	if (!isExtensionValid(file_name, "ppm"))
+		printf("Extension not valid!\n\n");
+
+	else {
+		convertPPMToPGM_Bin(file_name);
+		printf("Completed!\n\n");
+	}
+
 	free(file_name);
 }
 
 void convertP5ToBW() {
 	char* file_name;
-	printf("Please enter a file name of P5 file:\n");
+	printf("Please enter a file name of P5 file (including .pgm):\n");
 	file_name = readLineFromUser();
 
-	convertPGMToBW_Bin(file_name);
+	if (!isExtensionValid(file_name, "pgm"))
+		printf("Extension not valid!\n\n");
+
+	else {
+		convertPGMToBW_Bin(file_name);
+		printf("Completed!\n\n");
+	}
+
 	free(file_name);	
 }

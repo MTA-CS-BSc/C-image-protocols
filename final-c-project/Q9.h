@@ -1,8 +1,7 @@
 #ifndef __Q9_H
 #define __Q9_H
 #include "utils.h"
-#include <string.h>
-#include <math.h>
+#include "Q2.h"
 
 char* get_bw_file_name(char* fname, int k);
 char** createMaskMatrix(int k);
