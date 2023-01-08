@@ -30,7 +30,6 @@ GRAY_IMAGE* readPGMGeneric(char* fname, bool is_ascii) {
 
 	if (!fp)
 		printf("Couldn't read file!\n");
-		//exit(1);
 
 	else {
 		gray_image = (GRAY_IMAGE*)malloc(sizeof(GRAY_IMAGE));
