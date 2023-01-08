@@ -31,20 +31,16 @@ void main() {
 			if (segments)
 				freeImgPosList(segments);
 			
-			findSegments(&segments, p2_image, &segments_amount);
+			findSegments(&segments, &p2_image, &segments_amount);
 			break;
 		case 4:
-			if (p2_with_same_gray_level) {
-				if (p2_with_same_gray_level->pixels)
-					freeMat(p2_with_same_gray_level->pixels, p2_with_same_gray_level->rows);
+			if (p2_with_same_gray_level)
+				freeGrayImage(p2_with_same_gray_level);
 
-				free(p2_with_same_gray_level);
-			}
-
-			p2_with_same_gray_level = colorWithSameGrayLevel(&segments, p2_image, &segments_amount);
+			colorWithSameGrayLevel(&segments, &p2_image, &segments_amount, &p2_with_same_gray_level);
 			break;
 		case 5:
-			saveSameGrayColoredToPgm(p2_with_same_gray_level, &segments, p2_image, &segments_amount);
+			saveSameGrayColoredToPgm(&p2_with_same_gray_level, &segments, &p2_image, &segments_amount);
 			break;
 		case 6:
 			// Q6
