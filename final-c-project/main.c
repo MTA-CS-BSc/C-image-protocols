@@ -16,30 +16,28 @@ void main() {
 		printf("\n");
 		switch (desired_action) {
 		case 1:
-			if (p3_image) {
-				//freeRGBMat(p3_image->pixels, p3_image->rows);
-				free(p3_image);
-			}
+			if (p3_image)
+				freeColorImage(p3_image);
 				
 			p3_image = readP3Image();
 			break;
 		case 2:
-			if (p2_image) {
-				//freeMat(p2_image->pixels, p2_image->rows);
-				free(p2_image);
-			}
+			if (p2_image)
+				freeGrayImage(p2_image);
 
 			p2_image = readP2Image();
 			break;
 		case 3:
 			if (segments)
 				freeImgPosList(segments);
-
+			
 			findSegments(&segments, p2_image, &segments_amount);
 			break;
 		case 4:
 			if (p2_with_same_gray_level) {
-				//freeMat(p2_with_same_gray_level->pixels, p2_with_same_gray_level->rows);
+				if (p2_with_same_gray_level->pixels)
+					freeMat(p2_with_same_gray_level->pixels, p2_with_same_gray_level->rows);
+
 				free(p2_with_same_gray_level);
 			}
 
@@ -76,15 +74,10 @@ void main() {
 	
 	}
 
-	if (p2_image && p2_image->pixels)
-		freeMat(p2_image->pixels, p2_image->rows);
+	freeGrayImage(p2_image);
+	freeGrayImage(p2_with_same_gray_level);
+	freeColorImage(p3_image);
 
-	if (p2_with_same_gray_level && p2_with_same_gray_level->pixels)
-		freeMat(p2_with_same_gray_level->pixels, p2_with_same_gray_level->cols);
-	
-	if (p3_image && p3_image->pixels)
-		freeRGBMat(p3_image->pixels, p3_image->rows);
-	
 	if (segments)
 		freeImgPosList(segments);
 }
