@@ -1,49 +1,5 @@
 #include "Q5.h"
 
-void findMatrixSize(IMG_POS_LIST* segments, unsigned int size, unsigned short* rows, unsigned short* cols) {
-	if (size == 0)
-		return;
-
-	IMG_POS_NODE* curr;
-	unsigned short max_x = segments[0].head->position[X];
-	unsigned short max_y = segments[0].head->position[Y];
-
-	for (unsigned i = 0; i < size; i++) {
-		curr = segments[i].head;
-
-		while (curr != NULL)
-		{
-			if (curr->position[X] > max_x)
-				max_x = curr->position[X];
-
-			if (curr->position[Y] > max_y)
-				max_y = curr->position[Y];
-
-			curr = curr->next;
-		}
-
-	}
-	*rows = max_x + 1;
-	*cols = max_y + 1;	
-}
-
-void allocatePixelsMatrix(GRAY_IMAGE* img) {
-	img->pixels = (unsigned char**)malloc(sizeof(unsigned char*) * img->rows);
-
-	if (!img->pixels)
-		memoryAllocFailed();
-
-	for (int i = 0; i < img->rows; i++) {
-		img->pixels[i] = (unsigned char*)malloc(sizeof(unsigned char) * img->cols);
-
-		if (!img->pixels[i])
-			memoryAllocFailed();
-
-		for (int j = 0; j < img->cols; j++)
-			img->pixels[i][j] = 0;
-	}
-}
-
 GRAY_IMAGE* colorSegments(IMG_POS_LIST* segments,
 	unsigned int size) {
 	unsigned char gray_level;

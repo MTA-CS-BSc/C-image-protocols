@@ -1,6 +1,8 @@
 #ifndef __Q4_H
 #define __Q4_H
 #include "utils.h"
+#include "lists_utils.h"
+#include "matrices_utils.h"
 #include "Q3.h"
 
 // A recursive implementation to get the segment's positions from a given root.

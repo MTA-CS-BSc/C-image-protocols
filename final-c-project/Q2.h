@@ -1,5 +1,6 @@
 #ifndef __Q2_H
 #define __Q2_H
+#include "pic_files_utils.h"
 #include "utils.h"
 
 // Receives a file ref, a gray image ref and a flag to determine whether the file is a binary file or a text file. 

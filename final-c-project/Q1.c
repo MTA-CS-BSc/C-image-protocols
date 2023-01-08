@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "Q1.h"
 
 void readDataFromPPM(FILE* fp, COLOR_IMAGE* color_image, bool is_ascii) {
 	color_image->pixels = (RGB**)malloc(sizeof(RGB*) * color_image->rows);

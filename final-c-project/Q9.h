@@ -1,5 +1,7 @@
 #ifndef __Q9_H
 #define __Q9_H
+#include "matrices_utils.h"
+#include "pic_files_utils.h"
 #include "utils.h"
 #include "Q2.h"
 

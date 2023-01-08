@@ -1,6 +1,7 @@
 #ifndef __Q8_H
 #define __Q8_H
 #include "utils.h"
+#include "pic_files_utils.h"
 #include "Q1.h"
 
 // Receives a P3/P6 PPM file name and a flag to determine whether the file is a binary file or a text file.

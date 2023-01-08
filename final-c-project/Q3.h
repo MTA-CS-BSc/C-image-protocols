@@ -1,5 +1,7 @@
 #ifndef __Q3_H
 #define __Q3_H
+#include "lists_utils.h"
+#include "matrices_utils.h"
 #include "utils.h"
 
 // Receives a gray image ref, a list root (TNODE), a start position and a threshold.
