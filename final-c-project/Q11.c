@@ -12,8 +12,10 @@ void readDataFromBinaryPGM(FILE* fp, GRAY_IMAGE* gray_image) {
 		if (!(gray_image->pixels[i]))
 			memoryAllocFailed();
 
-		for (int j = 0; j < gray_image->cols; j++)
+		for (int j = 0; j < gray_image->cols; j++) {
 			fread(&(gray_image->pixels[i][j]), sizeof(unsigned char), 1, fp);
+		}
+			
 	}
 
 }
@@ -46,8 +48,10 @@ GRAY_IMAGE* readBinaryPGM(char* fname) {
 
 void writeMatrixToBinaryFile(FILE* fp, unsigned char** mat, int rows, int cols) {
 	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++)
+		for (int j = 0; j < cols; j++) {
 			fwrite(&(mat[i][j]), sizeof(unsigned char), 1, fp);
+		}
+			
 			//fprintf(fp, "%d ", mat[i][j]);
 
 		//fputc('\n', fp);
@@ -67,7 +71,7 @@ void convertPGMToBW_Bin(char* fname) {
 		char* k_file_name = get_bw_file_name(fname, k);
 		FILE* bw_fp = fopen(k_file_name, "wb");
 
-		fprintf(bw_fp, "P5\n%d %d\n%d\n", rows, cols, depth);
+		fprintf(bw_fp, "P5\n%d %d\n%d\n", rows, cols, 1);
 
 		for (int i = 0; i < rows; i += k)
 			for (int j = 0; j < cols; j += k)

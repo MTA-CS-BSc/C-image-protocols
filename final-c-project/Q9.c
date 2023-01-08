@@ -66,7 +66,7 @@ void updateMat(unsigned char** new_vals, char current_val, char **mask_matrix, i
 }
 
 void updateNewValsMatrix(GRAY_IMAGE* gray_image, int depth, int start_x, int start_y, int k, unsigned char** new_vals) {
-	int divider = (int)ceil((double)depth / (k * k)), current_val;
+	int divider = (int)(ceil((double)depth / (k * k))), current_val;
 	char** mask_matrix = createMaskMatrix(k);
 
 	for (int i = 0; i < k; i++) {
