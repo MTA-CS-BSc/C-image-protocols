@@ -4,6 +4,7 @@
 #include "pic_files_utils.h"
 #include "utils.h"
 #include "Q2.h"
+#include <math.h>
 
 // Receives a file name and a number k.
 // Returns a new file name that concats the file name received, k, and .bw.pgm.
