@@ -1,5 +1,4 @@
 #include "Q9.h"
-#include "Q2.h"
 
 char* get_bw_file_name(char* fname, int k) {
 	int ext_length = strlen(".bw.pgm");
@@ -48,12 +47,18 @@ char** createMaskMatrix(int k) {
 	return mask_matrix;
 }
 
-void writeMatrixToFile(FILE* fp, unsigned char** mat, int rows, int cols) {
+void writeMatrixToFile(FILE* fp, unsigned char** mat, int rows, int cols, bool is_ascii) {
 	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++)
-			fprintf(fp, "%d ", mat[i][j]);
+		for (int j = 0; j < cols; j++) {
+			if (is_ascii)
+				fprintf(fp, "%d ", mat[i][j]);
 
-		fputc('\n', fp);
+			else
+				fwrite(&(mat[i][j]), sizeof(unsigned char), 1, fp);
+		}
+
+		if (is_ascii)
+			fputc('\n', fp);
 	}
 }
 
@@ -81,28 +86,36 @@ void updateNewValsMatrix(GRAY_IMAGE* gray_image, int depth, int start_x, int sta
 	freeMat(mask_matrix, k);
 }
 
-void convertPGMToBW(char* fname) {
+void convertPGMToBWGeneric(char* fname, bool is_ascii) {
 	int rows, cols, depth;
 	unsigned char** new_vals;
-	GRAY_IMAGE* gray_image = readPGM(fname);
-	FILE* orig_f = fopen(fname, "r");
+	GRAY_IMAGE* gray_image = readPGMGeneric(fname, is_ascii);
+	FILE* orig_f = fopen(fname, is_ascii ? "r" : "rb");
 
 	readHeaderFromPicFile(orig_f, &rows, &cols, &depth);
 
 	for (int k = 2; k <= 4; k++) {
 		new_vals = createMatrix(rows, cols);
 		char* k_file_name = get_bw_file_name(fname, k);
-		FILE* bw_fp = fopen(k_file_name, "w");
+		FILE* bw_fp = fopen(k_file_name, is_ascii ? "w" : "wb");
 
-		fprintf(bw_fp, "P2\n%d %d\n%d\n", rows, cols, 1);
+		if (is_ascii)
+			fprintf(bw_fp, "P2\n%d %d\n%d\n", rows, cols, 1);
+
+		else
+			fprintf(bw_fp, "P5\n%d %d\n%d\n", rows, cols, 1);
 
 		for (int i = 0; i < rows; i += k)
 			for (int j = 0; j < cols; j += k)
 				updateNewValsMatrix(gray_image, depth, i, j, k, new_vals);
 
-		writeMatrixToFile(bw_fp, new_vals, rows, cols);
+		writeMatrixToFile(bw_fp, new_vals, rows, cols, is_ascii);
 		fclose(bw_fp);
 		free(k_file_name);
 		freeMat(new_vals, rows);
 	}
+}
+
+void convertPGMToBW(char* fname) {
+	convertPGMToBWGeneric(fname, true);
 }

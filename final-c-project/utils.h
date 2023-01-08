@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 // For IMG_POS
 #define X 0
@@ -93,4 +94,8 @@ void insertDataToEndImgPosList(IMG_POS_LIST* list, IMG_POS data);
 bool checkIfTresholdOk(GRAY_IMAGE* img, IMG_POS n1, IMG_POS n2, int threshold);
 bool isInRange(int row, int col, GRAY_IMAGE* img);
 void freePixelsFlags(bool** flags, int rows, int cols);
+void readDataFromPPM(FILE* fp, COLOR_IMAGE* color_image, bool is_ascii);
+COLOR_IMAGE* readPPMGeneric(char* fname, bool is_ascii);
+GRAY_IMAGE* readPGMGeneric(char* fname, bool is_ascii);
+void convertPPMToPGMGeneric(char* fname, bool is_ascii);
 #endif
