@@ -46,6 +46,13 @@ void freeMat(char** matrix, int rows) {
 	free(matrix);
 }
 
+void freePixelsFlags(bool** flags, int rows, int cols) {
+	for (int i = 0; i < rows; i++)
+		free(flags[i]);
+
+	free(flags);
+}
+
 char* getFirstTokenUntilDot(char* fname) {
 	return strtok(fname, ".");
 }
@@ -276,13 +283,6 @@ IMG_POS_NODE* createImgPosNode(IMG_POS data, IMG_POS_NODE* next, IMG_POS_NODE* p
 	node->position[Y] = data[Y];
 
 	return node;
-}
-
-void freePixelsFlags(bool** flags, int rows, int cols) {
-	for (int i = 0; i < rows; i++)
-		free(flags[i]);
-
-	free(flags);
 }
 
 bool isExtensionValid(char* fname, char* extension) {
