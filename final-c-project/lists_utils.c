@@ -1,5 +1,26 @@
 #include "lists_utils.h"
 
+void freeTNodeList(TNODE_LIST* list) {
+	TNODE_LNODE* current = list->head;
+	TNODE_LNODE* saver;
+	while (current != NULL) {
+		saver = current->next;
+		freeTNodeList(&(current->node->nextPossiblePositions));
+		free(current);
+		current = saver;
+	}
+}
+
+void freeImgPosList(IMG_POS_LIST* list) {
+	IMG_POS_NODE* current = list->head, *saver;
+
+	while (current != NULL) {
+		saver = current->next;
+		free(current);
+		current = saver;
+	}
+}
+
 void makeEmptyTNodeList(TNODE_LIST* list) {
 	list->head = list->tail = NULL;
 }

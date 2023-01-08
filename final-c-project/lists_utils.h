@@ -2,6 +2,12 @@
 #define __LISTS_UTILS_H
 #include "utils.h"
 
+// Frees a list of TNODE_LIST.
+void freeTNodeList(TNODE_LIST* list);
+
+// Frees a list of IMG_POS_LIST.
+void freeImgPosList(IMG_POS_LIST* list);
+
 // Receives a reference to a TNODE_LIST list. Initializes it's head and tail to NULL.
 void makeEmptyTNodeList(TNODE_LIST* list);
 
