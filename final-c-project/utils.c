@@ -59,7 +59,7 @@ char* createPgmFileName(char* fname) {
 }
 
 bool checkIfTresholdOk(GRAY_IMAGE* img, IMG_POS n1, IMG_POS n2, int threshold) {
-	return (abs((img->pixels[n1[X]][n1[Y]] - img->pixels[n2[X]][n2[Y]])) <= threshold);
+	return (ABS((img->pixels[n1[X]][n1[Y]] - img->pixels[n2[X]][n2[Y]])) <= threshold);
 }
 
 bool isInRange(int row, int col, GRAY_IMAGE* img) {
