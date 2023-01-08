@@ -61,7 +61,7 @@ int findAllSegments(GRAY_IMAGE* img,
 		}
 	}
 
-	freePixelsFlags(pixels_flags, (int)img->rows, (int)img->cols);
+	freePixelsFlags(pixels_flags, (int)img->rows);
 	*segments = returned_array_of_lists;
 	return current_size;
 }

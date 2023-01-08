@@ -1,10 +1,8 @@
 #ifndef __Q10_H
 #define __Q10_H
 #include "utils.h"
+#include "Q8.h"
 
-void readDataFromBinaryPPM(FILE* fp, COLOR_IMAGE* color_image);
-
-COLOR_IMAGE* readBinaryPPM(char* fname);
-
+// Receives a P6 PPM file name and converts it to a P5 PGM file.
 void convertPPMToPGM_Bin(char* fname);
 #endif
