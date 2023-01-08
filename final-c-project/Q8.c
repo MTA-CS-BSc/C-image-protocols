@@ -10,10 +10,10 @@ void convertPPMToPGMGeneric(char* fname, bool is_ascii) {
 	readHeaderFromPicFile(ppm_fp, &rows, &cols, &depth);
 
 	if (is_ascii)
-		fprintf(pgm_fp, "P2\n%d %d\n%d\n", rows, cols, depth);
+		fprintf(pgm_fp, "P2\n%d %d\n%d\n", cols, rows, depth);
 
 	else
-		fprintf(pgm_fp, "P5\n%d %d\n%d\n", rows, cols, depth);
+		fprintf(pgm_fp, "P5\n%d %d\n%d\n", cols, rows, depth);
 
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {

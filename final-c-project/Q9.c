@@ -100,10 +100,10 @@ void convertPGMToBWGeneric(char* fname, bool is_ascii) {
 		FILE* bw_fp = fopen(k_file_name, is_ascii ? "w" : "wb");
 
 		if (is_ascii)
-			fprintf(bw_fp, "P2\n%d %d\n%d\n", rows, cols, 1);
+			fprintf(bw_fp, "P2\n%d %d\n%d\n", cols, rows, 1);
 
 		else
-			fprintf(bw_fp, "P5\n%d %d\n%d\n", rows, cols, 1);
+			fprintf(bw_fp, "P5\n%d %d\n%d\n", cols, rows, 1);
 
 		for (int i = 0; i < rows; i += k)
 			for (int j = 0; j < cols; j += k)
