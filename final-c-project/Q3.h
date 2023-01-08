@@ -16,5 +16,4 @@ void findSingleSegmentHelper(GRAY_IMAGE* img, IMG_POS start,
 // The function returns the relevant segment.
 SEGMENT findSingleSegment(GRAY_IMAGE* img,
 	IMG_POS start, unsigned char threshold);
-
 #endif
