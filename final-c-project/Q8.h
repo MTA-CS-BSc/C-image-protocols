@@ -3,5 +3,6 @@
 #include "utils.h"
 #include "Q1.h"
 
+void convertPPMToPGMGeneric(char* fname, bool is_ascii);
 void convertPPMToPGM(char* fname);
 #endif

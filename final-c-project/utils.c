@@ -192,17 +192,15 @@ void readHeaderFromPicFile(FILE* fp, int* rows, int* cols, int* depth) {
 		
 	current_char = fgetc(fp);
 	
-	//if (current_char == '2' || current_char == '3') {
-		skipUntilOk(fp);
+	skipUntilOk(fp);
 
-		fscanf(fp, "%d %d", cols, rows);
+	fscanf(fp, "%d %d", cols, rows);
 
-		skipUntilOk(fp);
+	skipUntilOk(fp);
 
-		fscanf(fp, "%d", depth);
+	fscanf(fp, "%d", depth);
 
-		skipUntilOk(fp);
-	//}
+	skipUntilOk(fp);
 }
 
 void insertNodeToEndTNodeList(TNODE_LIST* list, TNODE_LNODE* node) {
@@ -285,4 +283,18 @@ void freePixelsFlags(bool** flags, int rows, int cols) {
 		free(flags[i]);
 
 	free(flags);
+}
+
+bool isExtensionValid(char* fname, char* extension) {
+	bool flag = false;
+	char* dup = _strdup(fname);
+	char* token = strtok(dup, ".");
+	token = strtok(NULL, ".");
+
+	if (token && strcmp(token, extension) == 0)
+		flag = true;
+
+	free(dup);
+	return flag;
+
 }

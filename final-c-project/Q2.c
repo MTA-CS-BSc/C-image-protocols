@@ -1,6 +1,6 @@
 #include "Q2.h"
 
-void readDataFromPGM(FILE* fp, GRAY_IMAGE* gray_image) {
+void readDataFromPGM(FILE* fp, GRAY_IMAGE* gray_image, bool is_ascii) {
 	gray_image->pixels = (unsigned char**)malloc(sizeof(unsigned char*) * gray_image->rows);
 
 	if (!(gray_image->pixels))
@@ -12,17 +12,23 @@ void readDataFromPGM(FILE* fp, GRAY_IMAGE* gray_image) {
 		if (!(gray_image->pixels[i]))
 			memoryAllocFailed();
 
-		for (int j = 0; j < gray_image->cols; j++)
-			fscanf(fp, "%d", &(gray_image->pixels[i][j]));
+		for (int j = 0; j < gray_image->cols; j++) {
+			if (is_ascii)
+				fscanf(fp, "%d", &(gray_image->pixels[i][j]));
+
+			else
+				fread(&(gray_image->pixels[i][j]), sizeof(unsigned char), 1, fp);
+		}
+
 	}
-		
+
 }
 
-GRAY_IMAGE* readPGM(char* fname) {
-	FILE* fp = fopen(fname, "r");
+GRAY_IMAGE* readPGMGeneric(char* fname, bool is_ascii) {
+	FILE* fp = fopen(fname, is_ascii ? "r" : "rb");
 	char current_char;
 	int cols, rows, depth;
-	GRAY_IMAGE *gray_image = (GRAY_IMAGE*)malloc(sizeof(GRAY_IMAGE));
+	GRAY_IMAGE* gray_image = (GRAY_IMAGE*)malloc(sizeof(GRAY_IMAGE));
 
 	if (!gray_image)
 		memoryAllocFailed();
@@ -37,9 +43,13 @@ GRAY_IMAGE* readPGM(char* fname) {
 	gray_image->cols = cols;
 	gray_image->rows = rows;
 
-	readDataFromPGM(fp, gray_image);
+	readDataFromPGM(fp, gray_image, is_ascii);
 
 	fclose(fp);
 
 	return gray_image;
+}
+
+GRAY_IMAGE* readPGM(char* fname) {
+	return readPGMGeneric(fname, true);
 }
