@@ -26,25 +26,28 @@ GRAY_IMAGE* readPGMGeneric(char* fname, bool is_ascii) {
 	FILE* fp = fopen(fname, is_ascii ? "r" : "rb");
 	char current_char;
 	int cols, rows, depth;
-	GRAY_IMAGE* gray_image = (GRAY_IMAGE*)malloc(sizeof(GRAY_IMAGE));
+	GRAY_IMAGE* gray_image = NULL;
 
-	if (!gray_image)
-		memoryAllocFailed();
-
-	if (!fp) {
+	if (!fp)
 		printf("Couldn't read file!\n");
-		exit(1);
+		//exit(1);
+
+	else {
+		gray_image = (GRAY_IMAGE*)malloc(sizeof(GRAY_IMAGE));
+
+		if (!gray_image)
+			memoryAllocFailed();
+
+		readHeaderFromPicFile(fp, &rows, &cols, &depth);
+
+		gray_image->cols = cols;
+		gray_image->rows = rows;
+		gray_image->pixels = NULL;
+
+		readDataFromPGM(fp, gray_image, is_ascii);
+
+		fclose(fp);
 	}
-
-	readHeaderFromPicFile(fp, &rows, &cols, &depth);
-
-	gray_image->cols = cols;
-	gray_image->rows = rows;
-	gray_image->pixels = NULL;
-
-	readDataFromPGM(fp, gray_image, is_ascii);
-
-	fclose(fp);
 
 	return gray_image;
 }
