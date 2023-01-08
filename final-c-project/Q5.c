@@ -1,14 +1,14 @@
 #include "Q5.h"
 
-void findMatrixSize(IMG_POS_LIST* segments, unsigned int size, int* rows, int* cols) {
+void findMatrixSize(IMG_POS_LIST* segments, unsigned int size, unsigned short* rows, unsigned short* cols) {
 	if (size == 0)
 		return;
 
 	IMG_POS_NODE* curr;
-	int max_x = segments[0].head->position[X];
-	int max_y = segments[0].head->position[Y];
+	unsigned short max_x = segments[0].head->position[X];
+	unsigned short max_y = segments[0].head->position[Y];
 
-	for (int i = 0; i < size; i++) {
+	for (unsigned i = 0; i < size; i++) {
 		curr = segments[i].head;
 
 		while (curr != NULL)

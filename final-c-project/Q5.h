@@ -2,7 +2,7 @@
 #define __Q5_H
 #include "utils.h"
 
-void findMatrixSize(IMG_POS_LIST* segments, unsigned int size, int* rows, int* cols);
+void findMatrixSize(IMG_POS_LIST* segments, unsigned int size, unsigned short* rows, unsigned short* cols);
 
 void allocatePixelsMatrix(GRAY_IMAGE* img);
 
