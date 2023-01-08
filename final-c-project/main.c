@@ -14,6 +14,7 @@ void main() {
 	scanf("%d", &desired_action);
 
 	while (desired_action != -1) {
+		printf("\n");
 		switch (desired_action) {
 		case 1:
 			p3_image = readP3Image();
