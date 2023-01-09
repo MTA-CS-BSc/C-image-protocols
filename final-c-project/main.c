@@ -43,7 +43,7 @@ void main() {
 			saveSameGrayColoredToPgm(&p2_with_same_gray_level, &segments, &p2_image, &segments_amount);
 			break;
 		case 6:
-			saveCompressed("blabla.pgm", p2_image, 30);
+			saveCompressedPGM(&p2_image);
 			break;
 		case 7:
 			// Q7

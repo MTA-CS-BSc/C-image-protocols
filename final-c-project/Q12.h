@@ -58,4 +58,7 @@ void convertP6ToP5();
 
 // A function to convert a P5 PGM file to black & white files (3 for each 2 <= k <= 4).
 void convertP5ToBW();
+
+// Receives a P2 PGM ref and saves it in the compressed form described in Q6.
+void saveCompressedPGM(GRAY_IMAGE** p2_image);
 #endif
