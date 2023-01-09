@@ -92,27 +92,37 @@ void convertPGMToBWGeneric(char* fname, bool is_ascii) {
 	GRAY_IMAGE* gray_image = readPGMGeneric(fname, is_ascii);
 	FILE* orig_f = fopen(fname, is_ascii ? "r" : "rb");
 
-	readHeaderFromPicFile(orig_f, &rows, &cols, &depth);
+	if (!orig_f)
+		printf("Couldn't read file!\n");
 
-	for (int k = 2; k <= 4; k++) {
-		new_vals = createMatrix(rows, cols);
-		char* k_file_name = get_bw_file_name(fname, k);
-		FILE* bw_fp = fopen(k_file_name, is_ascii ? "w" : "wb");
+	else {
+		readHeaderFromPicFile(orig_f, &rows, &cols, &depth);
 
-		if (is_ascii)
-			fprintf(bw_fp, "P2\n%d %d\n%d\n", cols, rows, 1);
+		for (int k = 2; k <= 4; k++) {
+			new_vals = createMatrix(rows, cols);
+			char* k_file_name = get_bw_file_name(fname, k);
+			FILE* bw_fp = fopen(k_file_name, is_ascii ? "w" : "wb");
 
-		else
-			fprintf(bw_fp, "P5\n%d %d\n%d\n", cols, rows, 1);
+			if (!bw_fp) {
+				printf("Couldn't open file for writing!");
+				exit(1);
+			}
 
-		for (int i = 0; i < rows; i += k)
-			for (int j = 0; j < cols; j += k)
-				updateNewValsMatrix(gray_image, depth, i, j, k, new_vals);
+			if (is_ascii)
+				fprintf(bw_fp, "P2\n%d %d\n%d\n", cols, rows, 1);
 
-		writeMatrixToFile(bw_fp, new_vals, rows, cols, is_ascii);
-		fclose(bw_fp);
-		free(k_file_name);
-		freeMat(new_vals, rows);
+			else
+				fprintf(bw_fp, "P5\n%d %d\n%d\n", cols, rows, 1);
+
+			for (int i = 0; i < rows; i += k)
+				for (int j = 0; j < cols; j += k)
+					updateNewValsMatrix(gray_image, depth, i, j, k, new_vals);
+
+			writeMatrixToFile(bw_fp, new_vals, rows, cols, is_ascii);
+			fclose(bw_fp);
+			free(k_file_name);
+			freeMat(new_vals, rows);
+		}
 	}
 }
 
