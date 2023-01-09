@@ -81,8 +81,10 @@ void saveCompressed(char* fname, GRAY_IMAGE* image,
 	unsigned char bits_required = amountOfBitsNeeded(maxGrayLevel), new_p;
 	FILE* fp = fopen(fname, "wb");
 
-	if (!fp)
-		printf("Couldn't open file!\n");
+	if (!fp) {
+		printf("Couldn't open file for writing!\n");
+		exit(1);
+	}
 
 	else {
 		fwrite(&(image->rows), sizeof(unsigned short), 1, fp);
