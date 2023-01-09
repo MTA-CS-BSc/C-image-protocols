@@ -198,7 +198,7 @@ void saveCompressedPGM(GRAY_IMAGE** p2_image) {
 
 	if (*p2_image) {
 		printf("Please enter a maximum gray level of the given P2:\n");
-		scanf("%d", max_gray_level);
+		scanf("%d", &max_gray_level);
 
 		printf("\nPlease enter the file name to save to (including .pgm):\n");
 		file_name = readLineFromUser();
