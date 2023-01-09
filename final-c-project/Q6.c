@@ -39,7 +39,7 @@ int amountOfBitsNeeded(unsigned char max_gray_level) {
 	return 8 - amount_of_leading_zeros;
 }
 
-void insertNewPToBytesArray(unsigned char new_p, unsigned char bits_required, BYTE* bytes_array,
+void insertNewPToBytesArray(unsigned char new_p, unsigned char bits_required, BYTE** bytes_array,
 	unsigned int* bytes_array_size, unsigned int* current_byte_available_bits) {
 
 	unsigned char shifted_p = new_p << (8 - bits_required); // [1111 1000]
@@ -47,7 +47,7 @@ void insertNewPToBytesArray(unsigned char new_p, unsigned char bits_required, BY
 	unsigned char right_splitted_p = shifted_p << (*current_byte_available_bits); // [0000 0000]
 	unsigned int bits_written;
 
-	bytes_array[*bytes_array_size] |= left_splitted_p;
+	(*bytes_array)[*bytes_array_size] |= left_splitted_p;
 
 	bits_written = min(bits_required, *current_byte_available_bits);
 
@@ -56,10 +56,14 @@ void insertNewPToBytesArray(unsigned char new_p, unsigned char bits_required, BY
 	if (*current_byte_available_bits <= 0) {
 		(*bytes_array_size)++;
 		*current_byte_available_bits = 8;
+		*bytes_array = (BYTE*)realloc(*bytes_array, sizeof(BYTE) * (*bytes_array_size + 1));
+
+		if (!(*bytes_array))
+			memoryAllocFailed();
 	}
 
 	if (bits_required - bits_written > 0) {
-		bytes_array[*bytes_array_size] |= right_splitted_p;
+		(*bytes_array)[*bytes_array_size] |= right_splitted_p;
 		*current_byte_available_bits = 8 - (bits_required - bits_written);
 	}
 		
@@ -75,9 +79,9 @@ void insertNewPToBytesArray(unsigned char new_p, unsigned char bits_required, BY
 
 void saveCompressed(char* fname, GRAY_IMAGE* image,
 	unsigned char maxGrayLevel) {
-	BYTE* bytes_array = (BYTE*)calloc(image->rows * image->cols, sizeof(BYTE));
 	unsigned int bytes_array_size = 0;
 	unsigned int current_byte_available_bits = 8;
+	BYTE* bytes_array = (BYTE*)calloc(bytes_array_size + 1, sizeof(BYTE));
 	unsigned char bits_required = amountOfBitsNeeded(maxGrayLevel), new_p;
 	FILE* fp = fopen(fname, "wb");
 
@@ -87,13 +91,12 @@ void saveCompressed(char* fname, GRAY_IMAGE* image,
 	else {
 		fwrite(&(image->rows), sizeof(unsigned short), 1, fp);
 		fwrite(&(image->cols), sizeof(unsigned short), 1, fp);
-
 		fwrite(&maxGrayLevel, sizeof(unsigned char), 1, fp);
 
 		for (int i = 0; i < image->rows; i++) {
 			for (int j = 0; j < image->cols; j++) {
 				new_p = (unsigned char)calcPNew(image->pixels[i][j], maxGrayLevel);
-				insertNewPToBytesArray(new_p, bits_required, bytes_array, &bytes_array_size, &current_byte_available_bits);
+				insertNewPToBytesArray(new_p, bits_required, &bytes_array, &bytes_array_size, &current_byte_available_bits);
 			}
 		}
 

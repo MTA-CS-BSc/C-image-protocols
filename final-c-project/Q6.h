@@ -17,7 +17,7 @@ int amountOfBitsNeeded(unsigned char max_gray_level);
 
 // Inserts the new value to the bytes array to the first available place according to the available bits and
 // the amount of bites required.
-void insertNewPToBytesArray(unsigned char new_p, unsigned char bits_required, BYTE* bytes_array,
+void insertNewPToBytesArray(unsigned char new_p, unsigned char bits_required, BYTE** bytes_array,
 	unsigned int* bytes_array_size, unsigned int* current_byte_available_bits);
 
 // Receives a file name to write, a gray image ref and max. gray level.
