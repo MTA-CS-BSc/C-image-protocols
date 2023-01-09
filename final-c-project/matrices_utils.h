@@ -8,6 +8,12 @@ void freeRGBMat(RGB** matrix, int rows);
 // Receives a matrix and it's size. Frees it's values.
 void freeMat(char** matrix, int rows);
 
+// Receives a gray image reference and frees it's pixels and the image.
+void freeGrayImage(GRAY_IMAGE* img);
+
+// Receives a color image reference and frees it's pixels and the image.
+void freeColorImage(COLOR_IMAGE* img);
+
 // Receives a matrix and it's size. Frees it's values.
 void freePixelsFlags(bool** flags, int rows);
 

@@ -30,25 +30,27 @@ COLOR_IMAGE* readPPMGeneric(char* fname, bool is_ascii) {
 	FILE* fp = fopen(fname, is_ascii ? "r" : "rb");
 	char current_char;
 	int cols, rows, depth;
-	COLOR_IMAGE* color_image = (COLOR_IMAGE*)malloc(sizeof(COLOR_IMAGE));
+	COLOR_IMAGE* color_image = NULL;
 
-	if (!color_image)
-		memoryAllocFailed();
-
-	if (!fp) {
+	if (!fp)
 		printf("Couldn't read file!\n");
-		exit(1);
+
+	else {
+		color_image = (COLOR_IMAGE*)malloc(sizeof(COLOR_IMAGE));
+
+		if (!color_image)
+			memoryAllocFailed();
+
+		readHeaderFromPicFile(fp, &rows, &cols, &depth);
+
+		color_image->cols = cols;
+		color_image->rows = rows;
+		color_image->pixels = NULL;
+
+		readDataFromPPM(fp, color_image, is_ascii);
+
+		fclose(fp);
 	}
-
-	readHeaderFromPicFile(fp, &rows, &cols, &depth);
-
-	color_image->cols = cols;
-	color_image->rows = rows;
-	color_image->pixels = NULL;
-
-	readDataFromPPM(fp, color_image, is_ascii);
-
-	fclose(fp);
 
 	return color_image;
 }

@@ -13,15 +13,17 @@ GRAY_IMAGE* colorSegments(IMG_POS_LIST* segments,
 	
 	allocatePixelsMatrix(gray_image);
 
-	for (int i = 0; i < (int)size; i++) {
-		gray_level = (i * 255) / (unsigned char)(size - 1); // Calculation described in Q5
-		current = segments[i].head;
+	if (size != 1) {
+		for (int i = 0; i < (int)size; i++) {
+			gray_level = (i * 255) / (unsigned char)(size - 1); // Calculation described in Q5
+			current = segments[i].head;
 
-		while (current != NULL) {
-			gray_image->pixels[current->position[X]][current->position[Y]] = gray_level;
-			current = current->next;
+			while (current != NULL) {
+				gray_image->pixels[current->position[X]][current->position[Y]] = gray_level;
+				current = current->next;
+			}
 		}
-	}
+	}	
 
 	return gray_image;
 }

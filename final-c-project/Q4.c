@@ -56,6 +56,7 @@ int findAllSegments(GRAY_IMAGE* img,
 					memoryAllocFailed();
 
 				returned_array_of_lists[current_size++] = current_img_pos_list;
+				freeTNodeList(&(current_root->nextPossiblePositions));
 				current_root = NULL;
 			}
 		}

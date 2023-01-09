@@ -14,6 +14,24 @@ void freeMat(char** matrix, int rows) {
 	free(matrix);
 }
 
+void freeGrayImage(GRAY_IMAGE* img) {
+	if (img) {
+		if (img->pixels)
+			freeMat(img->pixels, img->rows);
+
+		free(img);
+	}
+}
+
+void freeColorImage(COLOR_IMAGE* img) {
+	if (img) {
+		if (img->pixels)
+			freeRGBMat(img->pixels, img->rows);
+
+		free(img);
+	}
+}
+
 void freePixelsFlags(bool** flags, int rows) {
 	for (int i = 0; i < rows; i++)
 		free(flags[i]);

@@ -27,14 +27,14 @@ COLOR_IMAGE* readP3Image();
 
 // Reads segments from a P2 pgm image with given threshold (receives from input).
 // If no image is loaded, the user will be asked to load an image.
-void findSegments(IMG_POS_LIST** segments, GRAY_IMAGE* p2_image, int* segments_amount);
+void findSegments(IMG_POS_LIST** segments, GRAY_IMAGE** p2_image, int* segments_amount);
 
 // Receives segments of an image and their amount, and a P2 PGM image.
 // If no segments are loaded, the function will attempt to load them.
 // Creates a new gray image with the same gray level calculated from the segments and the image received.
 // Returns the created gray image ref.
-GRAY_IMAGE* colorWithSameGrayLevel(IMG_POS_LIST** segments, GRAY_IMAGE* p2_image,
-	int* segments_amount);
+void colorWithSameGrayLevel(IMG_POS_LIST** segments, GRAY_IMAGE** p2_image,
+	int* segments_amount, GRAY_IMAGE** p2_with_same_gray_level);
 
 // Receives a gray image with same gray level for each segment ref and a file name.
 // The function writes the gray image to a P2 PGM file.
@@ -43,8 +43,8 @@ void saveGrayImageToP2(GRAY_IMAGE* p2_with_same_gray_level,
 
 // Saves a P2 gray image with the same gray level for each segment with a name that is received from the user.
 // If no gray image with same gray level is found, the function will attempt to create one.
-void saveSameGrayColoredToPgm(GRAY_IMAGE* p2_with_same_gray_level,
-	IMG_POS_LIST** segments, GRAY_IMAGE* p2_image,
+void saveSameGrayColoredToPgm(GRAY_IMAGE** p2_with_same_gray_level,
+	IMG_POS_LIST** segments, GRAY_IMAGE** p2_image,
 	int* segments_amount);
 
 // A function to convert a P3 PPM file to a P2 PGM file.

@@ -44,25 +44,25 @@ GRAY_IMAGE* readP2Image() {
 	return gray_image;
 }
 
-void findSegments(IMG_POS_LIST** segments, GRAY_IMAGE* p2_image, int* segments_amount) {
+void findSegments(IMG_POS_LIST** segments, GRAY_IMAGE** p2_image, int* segments_amount) {
 	unsigned int threshold;
-	if (!p2_image) {
+	if (!(*p2_image)) {
 		printf("No P2 image was loaded! Please load an image first:\n");
-		p2_image = readP2Image();
+		*p2_image = readP2Image();
 	}
 
-	if (p2_image) {
+	if (*p2_image) {
 		printf("Please enter the threshold:\n");
 		scanf("%u", &threshold);
 
-		*segments_amount = findAllSegments(p2_image, threshold, segments);
+		*segments_amount = findAllSegments(*p2_image, threshold, segments);
 
 		printf("Completed!\n\n");
 	}
 }
 
-GRAY_IMAGE* colorWithSameGrayLevel(IMG_POS_LIST** segments, GRAY_IMAGE* p2_image,
-	int* segments_amount) {
+void colorWithSameGrayLevel(IMG_POS_LIST** segments, GRAY_IMAGE** p2_image,
+	int* segments_amount, GRAY_IMAGE **p2_with_same_gray_level) {
 	GRAY_IMAGE* image_with_same_gray_level = NULL;
 
 	if (!(*segments)) {
@@ -75,7 +75,7 @@ GRAY_IMAGE* colorWithSameGrayLevel(IMG_POS_LIST** segments, GRAY_IMAGE* p2_image
 		printf("Completed!\n\n");
 	}
 
-	return image_with_same_gray_level;
+	*p2_with_same_gray_level = image_with_same_gray_level;
 }
 
 void saveGrayImageToP2(GRAY_IMAGE* p2_with_same_gray_level,
@@ -83,8 +83,7 @@ void saveGrayImageToP2(GRAY_IMAGE* p2_with_same_gray_level,
 	FILE* pgm_fp = fopen(file_name, "w");
 	int depth = 255;
 
-	fprintf(pgm_fp, "P2\n%d %d\n%d\n", p2_with_same_gray_level->rows,
-		p2_with_same_gray_level->cols, depth);
+	fprintf(pgm_fp, "P2\n%d %d\n%d\n", p2_with_same_gray_level->cols, p2_with_same_gray_level->rows, depth);
 
 	for (int i = 0; i < p2_with_same_gray_level->rows; i++) {
 		for (int j = 0; j < p2_with_same_gray_level->cols; j++) {
@@ -97,18 +96,18 @@ void saveGrayImageToP2(GRAY_IMAGE* p2_with_same_gray_level,
 	fclose(pgm_fp);
 }
 
-void saveSameGrayColoredToPgm(GRAY_IMAGE* p2_with_same_gray_level,
-	IMG_POS_LIST** segments, GRAY_IMAGE* p2_image,
+void saveSameGrayColoredToPgm(GRAY_IMAGE** p2_with_same_gray_level,
+	IMG_POS_LIST** segments, GRAY_IMAGE** p2_image,
 	int* segments_amount) {
 	char* file_name;
 
-	if (!p2_with_same_gray_level) {
+	if (!(*p2_with_same_gray_level)) {
 		printf("No colored image found. Attempting to color...\n");
-		p2_with_same_gray_level = colorWithSameGrayLevel(segments,
-			p2_image, segments_amount);
+		colorWithSameGrayLevel(segments,
+			p2_image, segments_amount, p2_with_same_gray_level);
 	}
 
-	if (p2_with_same_gray_level) {
+	if (*p2_with_same_gray_level) {
 		printf("Please enter the desired PGM file name (including .pgm):\n");
 		file_name = readLineFromUser();
 
@@ -116,7 +115,7 @@ void saveSameGrayColoredToPgm(GRAY_IMAGE* p2_with_same_gray_level,
 			printf("Extension not valid!\n\n");
 
 		else {
-			saveGrayImageToP2(p2_with_same_gray_level, file_name);
+			saveGrayImageToP2(*p2_with_same_gray_level, file_name);
 			printf("Completed!\n\n");
 		}
 
