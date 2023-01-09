@@ -60,7 +60,7 @@ void insertNewPToBytesArray(unsigned char new_p, unsigned char bits_required, BY
 
 	if (bits_required - bits_written > 0) {
 		bytes_array[*bytes_array_size] |= right_splitted_p;
-		*current_byte_available_bits = 8 - (5 - bits_written);
+		*current_byte_available_bits = 8 - (bits_required - bits_written);
 	}
 		
 	
