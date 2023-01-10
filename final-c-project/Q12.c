@@ -200,18 +200,15 @@ void saveCompressedPGM(GRAY_IMAGE** p2_image) {
 		printf("Please enter a maximum gray level of the given P2:\n");
 		scanf("%d", &max_gray_level);
 
-		printf("\nPlease enter the file name to save to (including .pgm):\n");
+		printf("\nPlease enter the file name to save to:\n");
 		file_name = readLineFromUser();
 
-		if (!isExtensionValid(file_name, "pgm"))
-			printf("Extension not valid!\n\n");
+		saveCompressed(file_name, *p2_image, (unsigned char)max_gray_level);
 
-		else {
-			saveCompressed(file_name, *p2_image, (unsigned char)max_gray_level);
-			printf("Completed!\n\n");
-		}
+		printf("Completed!\n\n");
 
 		free(file_name);
 	}
 		
 }
+
