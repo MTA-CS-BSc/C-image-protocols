@@ -80,20 +80,27 @@ void colorWithSameGrayLevel(IMG_POS_LIST** segments, GRAY_IMAGE** p2_image,
 
 void saveGrayImageToP2(GRAY_IMAGE* p2_with_same_gray_level,
 	char* file_name) {
-	FILE* pgm_fp = fopen(file_name, "w");
 	int depth = 255;
-
-	fprintf(pgm_fp, "P2\n%d %d\n%d\n", p2_with_same_gray_level->cols, p2_with_same_gray_level->rows, depth);
-
-	for (int i = 0; i < p2_with_same_gray_level->rows; i++) {
-		for (int j = 0; j < p2_with_same_gray_level->cols; j++) {
-			fprintf(pgm_fp, "%d ", p2_with_same_gray_level->pixels[i][j]);
-		}
-
-		fputc('\n', pgm_fp);
+	FILE* pgm_fp = fopen(file_name, "w");
+	
+	if (!pgm_fp) {
+		printf("Couldn't open file for writing!\n");
+		exit(1);
 	}
 
-	fclose(pgm_fp);
+	else {
+		fprintf(pgm_fp, "P2\n%d %d\n%d\n", p2_with_same_gray_level->cols, p2_with_same_gray_level->rows, depth);
+
+		for (int i = 0; i < p2_with_same_gray_level->rows; i++) {
+			for (int j = 0; j < p2_with_same_gray_level->cols; j++) {
+				fprintf(pgm_fp, "%d ", p2_with_same_gray_level->pixels[i][j]);
+			}
+
+			fputc('\n', pgm_fp);
+		}
+
+		fclose(pgm_fp);
+	}
 }
 
 void saveSameGrayColoredToPgm(GRAY_IMAGE** p2_with_same_gray_level,
