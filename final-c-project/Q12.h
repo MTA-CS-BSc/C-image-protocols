@@ -6,7 +6,7 @@
 #include "Q3.h"
 #include "Q4.h"
 #include "Q5.h"
-//#include "Q6.h"
+#include "Q6.h"
 //#include "Q7.h"
 #include "Q8.h"
 #include "Q9.h"
@@ -58,4 +58,7 @@ void convertP6ToP5();
 
 // A function to convert a P5 PGM file to black & white files (3 for each 2 <= k <= 4).
 void convertP5ToBW();
+
+// Receives a P2 PGM ref and saves it in the compressed form described in Q6.
+void saveCompressedPGM(GRAY_IMAGE** p2_image);
 #endif
