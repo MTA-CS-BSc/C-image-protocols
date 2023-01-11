@@ -42,8 +42,8 @@ int amountOfBitsNeeded(unsigned char max_gray_level) {
 void insertNewPToBytesArray(unsigned char new_p, unsigned char bits_required, BYTE* bytes_array,
 	unsigned int* bytes_array_size, unsigned int* current_byte_available_bits) {
 
-	unsigned char shifted_p = new_p << (8 - bits_required); // [1111 1000]
-	unsigned char left_splitted_p = shifted_p >> (8 - *current_byte_available_bits); // [1111 1000]
+	unsigned char shifted_p = new_p << (CHAR_BIT - bits_required); // [1111 1000]
+	unsigned char left_splitted_p = shifted_p >> (CHAR_BIT - *current_byte_available_bits); // [1111 1000]
 	unsigned char right_splitted_p = shifted_p << (*current_byte_available_bits); // [0000 0000]
 	unsigned int bits_written;
 
@@ -55,12 +55,12 @@ void insertNewPToBytesArray(unsigned char new_p, unsigned char bits_required, BY
 
 	if (*current_byte_available_bits <= 0) {
 		(*bytes_array_size)++;
-		*current_byte_available_bits = 8;
+		*current_byte_available_bits = CHAR_BIT;
 	}
 
 	if (bits_required - bits_written > 0) {
 		bytes_array[*bytes_array_size] |= right_splitted_p;
-		*current_byte_available_bits = 8 - (bits_required - bits_written);
+		*current_byte_available_bits = CHAR_BIT - (bits_required - bits_written);
 	}
 		
 	
