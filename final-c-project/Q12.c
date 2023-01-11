@@ -193,3 +193,29 @@ void convertP5ToBW() {
 
 	free(file_name);	
 }
+
+void saveCompressedPGM(GRAY_IMAGE** p2_image) {
+	char* file_name;
+	int max_gray_level;
+
+	if (!(*p2_image)) {
+		printf("No P2 image was loaded! Please load an image first:\n");
+		*p2_image = readP2Image();
+	}
+
+	if (*p2_image) {
+		printf("Please enter a maximum gray level of the given P2:\n");
+		scanf("%d", &max_gray_level);
+
+		printf("\nPlease enter the file name to save to:\n");
+		file_name = readLineFromUser();
+
+		saveCompressed(file_name, *p2_image, (unsigned char)max_gray_level);
+
+		printf("Completed!\n\n");
+
+		free(file_name);
+	}
+		
+}
+
