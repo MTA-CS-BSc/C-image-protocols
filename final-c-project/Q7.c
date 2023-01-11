@@ -99,18 +99,21 @@ void insertDataToMat(BYTE* current_byte,
 
     without_read_bits = *current_byte & mask_for_extract;
 
+    // [0000 b1b2b300]
+    // 
+    // >> shift right 8 - *bits_read_from_current_byte + bits_to_read
+    // [0000 00b1b2b3]
+    // matrix[i][j] << *required_bits - bits_to_read;
+    // matrix[i] = new_shifted
     // without_read_bits = [ 0000 0001]
+
+    without_read_bits >>= (8 - (*bits_read_from_current_byte + bits_to_read)); // push to end
+    matrix[*insert_i][*insert_j] <<= (*required_bits - *bits_read_for_current_insert_index);
+    matrix[*insert_i][*insert_j] |= without_read_bits;
 
     *bits_read_from_current_byte += bits_to_read;
     *bits_read_for_current_insert_index += bits_to_read;
-
-    // TODO: FIND CORRECT MASK
-    //without_read_bits = without_read_bits >> (*required_bits - *bits_read_for_current_insert_index);
-    //without_read_bits = without_read_bits >> (8 - *bits_read_for_current_insert_index);
-
-    matrix[*insert_i][*insert_j] <<= bits_to_read;
-    matrix[*insert_i][*insert_j] |= without_read_bits;
-
+    
 
     if (*bits_read_from_current_byte == CHAR_BIT) {
         fread(current_byte, sizeof(BYTE), 1, fp);
