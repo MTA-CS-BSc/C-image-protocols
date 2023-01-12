@@ -7,7 +7,7 @@
 // Calculates the new value according to the gray level given.
 int calcPNew(unsigned char p_value, unsigned char max_gray_level);
 
-// Inserts the new value to the bytes array to the first available place according to the available bits and
+// Inserts the new value to the current byte to the first available place according to the available bits and
 // the amount of bites required.
 void insertPNewToBytesArray(unsigned char new_p, unsigned char bits_required, BYTE* current_byte,
 	unsigned int* bits_written_amount, unsigned int* current_byte_available_bits, FILE* fp);
