@@ -31,6 +31,9 @@ void findMatrixSize(IMG_POS_LIST* segments, unsigned int size, unsigned short* r
 // Receives a gray image ref and allocates it's pixels matrix with default values.
 void allocatePixelsMatrix(GRAY_IMAGE* img);
 
+// Receives a number k, 2 <= k <= 4 and returns the relevant k * k mask matrix.
+char** createMaskMatrix(int k);
+
 // Receives a file ref, a pixels matrix, the matrix rows and cols amount and a flag to determine whether the file
 // is a binary file or a test file.
 // The function writes the matrix pixels values to the file.

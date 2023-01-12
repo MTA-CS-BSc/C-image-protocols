@@ -121,6 +121,33 @@ void allocatePixelsMatrix(GRAY_IMAGE* img) {
 	}
 }
 
+char** createMaskMatrix(int k) {
+	char** mask_matrix = createMatrix(k, k);
+	char matrix2[2][2] = { {0, 2}, {3, 1} };
+	char matrix3[3][3] = { {2, 6, 4}, {5, 0, 1}, {8, 3, 7} };
+	char matrix4[4][4] = { {0, 8, 2, 10}, {12, 4, 14, 6}, {3, 11, 1, 9}, {15, 7, 13, 5 } };
+	char* related_matrix;
+
+	switch (k) {
+	case 3:
+		related_matrix = (char*)matrix3;
+		break;
+	case 4:
+		related_matrix = (char*)matrix4;
+		break;
+	default:
+		related_matrix = (char*)matrix2;
+		break;
+	}
+
+	for (int i = 0; i < k; i++)
+		for (int j = 0; j < k; j++)
+			mask_matrix[i][j] = related_matrix[i * k + j];
+
+	return mask_matrix;
+}
+
+
 void writeMatrixToFile(FILE* fp, unsigned char** mat, int rows, int cols, bool is_ascii) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
