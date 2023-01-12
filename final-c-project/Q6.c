@@ -40,7 +40,7 @@ void saveCompressed(char* fname, GRAY_IMAGE* image,
 	unsigned char maxGrayLevel) {
 	BYTE* bytes_array = (BYTE*)calloc(image->rows * image->cols, sizeof(BYTE));
 	unsigned int bytes_array_size = 0;
-	unsigned int current_byte_available_bits = 8;
+	unsigned int current_byte_available_bits = CHAR_BIT;
 	unsigned char bits_required = amountOfBitsNeeded(maxGrayLevel), new_p;
 	FILE* fp = fopen(fname, "wb");
 
