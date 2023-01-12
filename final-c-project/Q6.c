@@ -60,16 +60,6 @@ void saveCompressed(char* fname, GRAY_IMAGE* image,
 			}
 		}
 
-		//bytes_array = (BYTE*)realloc(bytes_array, sizeof(BYTE) * bytes_written_amount);
-
-		/*if (!bytes_array)
-			memoryAllocFailed();*/
-
-		/*for (int i = 0; i < bytes_written_amount; i++)
-			fwrite(&bytes_array[i], sizeof(BYTE), 1, fp);*/
-
 		fclose(fp);
-
-		//free(bytes_array);
 	}
 }
