@@ -6,10 +6,10 @@ int calcPNew(unsigned char p_value, unsigned char max_gray_level) {
 
 void insertPNewToBytesArray(unsigned char new_p, unsigned char bits_required, BYTE* current_byte,
 	unsigned int* bytes_written_amount, unsigned int* current_byte_available_bits, FILE* fp) {
-
-	unsigned char shifted_p = new_p << (CHAR_BIT - bits_required); // remove leading zeroes to have the needed bits
-	unsigned char left_splitted_p = shifted_p >> (CHAR_BIT - *current_byte_available_bits); // get the first 8 - available bits
-	unsigned char right_splitted_p = shifted_p << (*current_byte_available_bits); // the rest
+	
+	unsigned char shifted_p = new_p << (CHAR_BIT - bits_required); // remove leading zeroes to have the needed bits at the beginning
+	unsigned char left_splitted_p = shifted_p >> (CHAR_BIT - *current_byte_available_bits); // get the first 8 - available bits (pushed to end)
+	unsigned char right_splitted_p = shifted_p << (*current_byte_available_bits); // the rest (pushed to start)
 	unsigned int bits_written;
 
 	*current_byte |= left_splitted_p; // insert the left splitted to the current index
