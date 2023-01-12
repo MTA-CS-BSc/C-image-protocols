@@ -1,5 +1,5 @@
-#ifndef __PIC_FILES_UTILS
-#define __PIC_FILES_UTILS
+#ifndef __PIC_FILES_UTILS_H
+#define __PIC_FILES_UTILS_H
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdbool.h>
