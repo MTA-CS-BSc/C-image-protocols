@@ -26,7 +26,7 @@ BYTE setBit(BYTE ch, int i) {
 }
 
 BYTE setBitsInRange(BYTE ch, int l, int r) {
-	for (int i = 8 - l; i >= CHAR_BIT - r; i--)
+	for (int i = CHAR_BIT - l; i >= CHAR_BIT - r; i--)
 		ch = setBit(ch, i);
 
 	return ch;
