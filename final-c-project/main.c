@@ -46,7 +46,7 @@ void main() {
 			saveCompressedPGM(&p2_image);
 			break;
 		case 7:
-			convertCompressedToPGM("output");
+			convertCompressedFileToPGM();
 			break;
 		case 8:
 			convertP3ToP2();
