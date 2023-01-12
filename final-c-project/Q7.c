@@ -59,7 +59,7 @@ void convertCompressedToPGM(char* fname) {
     unsigned int bit_counter = 0;
     unsigned int bits_read_for_current_insert_index = 0;
     unsigned int current_number = 0;
-
+    int insert_i = 0, insert_j = 0;
     FILE* p2 = fopen(p2_file_name, "w");
     FILE* compressed = fopen(fname, "rb");
 
@@ -76,8 +76,6 @@ void convertCompressedToPGM(char* fname) {
 
         fread(&current_byte_read, sizeof(BYTE), 1, compressed);
         bit_counter += CHAR_BIT;
-
-        int insert_i = 0, insert_j = 0;
 
         while (bit_counter <= total_bits_to_read) {
             getDataFromByte(&current_byte_read, &current_number, 
