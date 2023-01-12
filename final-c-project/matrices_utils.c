@@ -120,3 +120,18 @@ void allocatePixelsMatrix(GRAY_IMAGE* img) {
 			img->pixels[i][j] = 0;
 	}
 }
+
+void writeMatrixToFile(FILE* fp, unsigned char** mat, int rows, int cols, bool is_ascii) {
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			if (is_ascii)
+				fprintf(fp, "%d ", mat[i][j]);
+
+			else
+				fwrite(&(mat[i][j]), sizeof(unsigned char), 1, fp);
+		}
+
+		if (is_ascii)
+			fputc('\n', fp);
+	}
+}
