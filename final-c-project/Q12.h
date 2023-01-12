@@ -61,4 +61,7 @@ void convertP5ToBW();
 
 // Receives a P2 PGM ref and saves it in the compressed form described in Q6.
 void saveCompressedPGM(GRAY_IMAGE** p2_image);
+
+// Reads a compressed file name from the user and converts it to a P2 PGM file.
+void convertCompressedFileToPGM();
 #endif
