@@ -14,23 +14,23 @@ void getDataFromByte(BYTE* current_byte, int *current_number,
     BYTE mask_for_extract = 0;
     BYTE without_read_bits;
 
-    unsigned int bits_to_read = MIN(*required_bits - *bits_read_for_current_insert_index, CHAR_BIT - *bits_read_from_current_byte);
+    unsigned int bits_to_read = MIN(*required_bits - *bits_read_for_current_insert_index, BITS_IN_CHAR - *bits_read_from_current_byte);
     mask_for_extract = setBitsInRange(mask_for_extract, *bits_read_from_current_byte + 1,
         *bits_read_from_current_byte + bits_to_read);
 
     without_read_bits = *current_byte & mask_for_extract;
 
-    without_read_bits >>= (CHAR_BIT - (*bits_read_from_current_byte + bits_to_read)); // push to end
+    without_read_bits >>= (BITS_IN_CHAR - (*bits_read_from_current_byte + bits_to_read)); // push to end
     *current_number <<= (*required_bits - *bits_read_for_current_insert_index);
     *current_number |= without_read_bits;
 
     *bits_read_from_current_byte += bits_to_read;
     *bits_read_for_current_insert_index += bits_to_read;
     
-    if (*bits_read_from_current_byte == CHAR_BIT) {
+    if (*bits_read_from_current_byte == BITS_IN_CHAR) {
         fread(current_byte, sizeof(BYTE), 1, fp);
         *bits_read_from_current_byte = 0;
-        *bit_counter += CHAR_BIT;
+        *bit_counter += BITS_IN_CHAR;
     }
 
     if (*bits_read_for_current_insert_index == *required_bits) {
@@ -75,7 +75,7 @@ void convertCompressedToPGM(char* fname) {
         total_bits_to_read = rows * cols * required_bits;
 
         fread(&current_byte_read, sizeof(BYTE), 1, compressed);
-        bit_counter += CHAR_BIT;
+        bit_counter += BITS_IN_CHAR;
 
         while (bit_counter <= total_bits_to_read) {
             getDataFromByte(&current_byte_read, &current_number, 

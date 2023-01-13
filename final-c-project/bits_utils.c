@@ -17,7 +17,7 @@ int amountOfBitsNeeded(unsigned char max_gray_level) {
 			amount_of_leading_zeros++;
 	}
 
-	return CHAR_BIT - amount_of_leading_zeros;
+	return BITS_IN_CHAR - amount_of_leading_zeros;
 }
 
 BYTE setBit(BYTE ch, int i) {
@@ -26,7 +26,7 @@ BYTE setBit(BYTE ch, int i) {
 }
 
 BYTE setBitsInRange(BYTE ch, int l, int r) {
-	for (int i = CHAR_BIT - l; i >= CHAR_BIT - r; i--)
+	for (int i = BITS_IN_CHAR - l; i >= BITS_IN_CHAR - r; i--)
 		ch = setBit(ch, i);
 
 	return ch;

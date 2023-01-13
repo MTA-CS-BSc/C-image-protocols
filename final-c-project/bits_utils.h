@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define CHAR_BIT 8
+#define BITS_IN_CHAR 8
 
 typedef unsigned char BYTE;
 

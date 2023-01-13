@@ -7,8 +7,8 @@ int calcPNew(unsigned char p_value, unsigned char max_gray_level) {
 void insertPNewToBytesArray(unsigned char new_p, unsigned char bits_required, BYTE* current_byte,
 	unsigned int* bytes_written_amount, unsigned int* current_byte_available_bits, FILE* fp) {
 	
-	unsigned char shifted_p = new_p << (CHAR_BIT - bits_required); // remove leading zeroes to have the needed bits at the beginning
-	unsigned char left_splitted_p = shifted_p >> (CHAR_BIT - *current_byte_available_bits); // get the first 8 - available bits (pushed to end)
+	unsigned char shifted_p = new_p << (BITS_IN_CHAR - bits_required); // remove leading zeroes to have the needed bits at the beginning
+	unsigned char left_splitted_p = shifted_p >> (BITS_IN_CHAR - *current_byte_available_bits); // get the first 8 - available bits (pushed to end)
 	unsigned char right_splitted_p = shifted_p << (*current_byte_available_bits); // the rest (pushed to start)
 	unsigned int bits_written;
 
@@ -20,13 +20,13 @@ void insertPNewToBytesArray(unsigned char new_p, unsigned char bits_required, BY
 
 	if (*current_byte_available_bits == 0) { // if we're done writing the byte
 		fwrite(current_byte, sizeof(BYTE), 1, fp);
-		*current_byte_available_bits = CHAR_BIT;
+		*current_byte_available_bits = BITS_IN_CHAR;
 		*current_byte = 0x0;
 	}
 
 	if (bits_required - bits_written > 0) { // If we wrote less than bits_required
 		*current_byte |= right_splitted_p;
-		*current_byte_available_bits = CHAR_BIT - (bits_required - bits_written);
+		*current_byte_available_bits = BITS_IN_CHAR - (bits_required - bits_written);
 	}
 }
 
@@ -41,7 +41,7 @@ void saveCompressed(char* fname, GRAY_IMAGE* image,
 	unsigned char maxGrayLevel) {
 	BYTE current_byte = 0x0;
 	unsigned int bytes_written_amount = 0;
-	unsigned int current_byte_available_bits = CHAR_BIT;
+	unsigned int current_byte_available_bits = BITS_IN_CHAR;
 	unsigned char bits_required = amountOfBitsNeeded(maxGrayLevel), new_p;
 	FILE* fp = fopen(fname, "wb");
 
