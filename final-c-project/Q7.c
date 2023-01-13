@@ -6,10 +6,10 @@ void getHeaderFromCompressed(FILE* compressed, unsigned int* rows, unsigned int*
     fread(max_gray_level, sizeof(unsigned char), 1, compressed);
 }
 
-void insertDataToMat(BYTE* current_byte,
+void getDataFromByte(BYTE* current_byte, int *current_number,
     unsigned int* bits_read_from_current_byte, unsigned char* required_bits,
     unsigned int* bit_counter, unsigned int* bits_read_for_current_insert_index,
-    char** matrix, int* insert_i, int* insert_j, int cols, FILE* fp) {
+    int* insert_j, int cols, FILE* fp, FILE* p2) {
     
     BYTE mask_for_extract = 0;
     BYTE without_read_bits;
@@ -21,13 +21,12 @@ void insertDataToMat(BYTE* current_byte,
     without_read_bits = *current_byte & mask_for_extract;
 
     without_read_bits >>= (CHAR_BIT - (*bits_read_from_current_byte + bits_to_read)); // push to end
-    matrix[*insert_i][*insert_j] <<= (*required_bits - *bits_read_for_current_insert_index);
-    matrix[*insert_i][*insert_j] |= without_read_bits;
+    *current_number <<= (*required_bits - *bits_read_for_current_insert_index);
+    *current_number |= without_read_bits;
 
     *bits_read_from_current_byte += bits_to_read;
     *bits_read_for_current_insert_index += bits_to_read;
     
-
     if (*bits_read_from_current_byte == CHAR_BIT) {
         fread(current_byte, sizeof(BYTE), 1, fp);
         *bits_read_from_current_byte = 0;
@@ -35,14 +34,17 @@ void insertDataToMat(BYTE* current_byte,
     }
 
     if (*bits_read_for_current_insert_index == *required_bits) {
+        fprintf(p2, "%d ", *current_number);
+
         (*insert_j)++;
 
         if (*insert_j == cols) {
             *insert_j = 0;
-            (*insert_i)++;
+            fputc('\n', p2);
         }
 
         *bits_read_for_current_insert_index = 0;
+        *current_number = 0x0;
     }
 }
 
@@ -56,7 +58,8 @@ void convertCompressedToPGM(char* fname) {
     unsigned int total_bits_to_read;
     unsigned int bit_counter = 0;
     unsigned int bits_read_for_current_insert_index = 0;
-
+    unsigned int current_number = 0;
+    int insert_i = 0, insert_j = 0;
     FILE* p2 = fopen(p2_file_name, "w");
     FILE* compressed = fopen(fname, "rb");
 
@@ -74,15 +77,11 @@ void convertCompressedToPGM(char* fname) {
         fread(&current_byte_read, sizeof(BYTE), 1, compressed);
         bit_counter += CHAR_BIT;
 
-        unsigned char** matrix = createMatrix(rows, cols);
-        int insert_i = 0, insert_j = 0;
-
-        while (bit_counter < total_bits_to_read) {
-            insertDataToMat(&current_byte_read, &bits_read_from_current_byte, &required_bits, &bit_counter
-                ,&bits_read_for_current_insert_index, matrix, &insert_i, &insert_j, cols, compressed);
+        while (bit_counter <= total_bits_to_read) {
+            getDataFromByte(&current_byte_read, &current_number, 
+                &bits_read_from_current_byte, &required_bits, &bit_counter
+                ,&bits_read_for_current_insert_index, &insert_j, cols, compressed, p2);
         }
-
-        writeMatrixToFile(p2, matrix, rows, cols, true);
 
         fclose(p2);
         fclose(compressed);
