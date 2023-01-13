@@ -12,7 +12,6 @@
 #include "Q9.h"
 #include "Q10.h"
 #include "Q11.h"
-#include <string.h>
 
 // A function to print a menu of options to choose from.
 void printMenu();
