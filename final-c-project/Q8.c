@@ -40,6 +40,7 @@ void convertPPMToPGMGeneric(char* fname, bool is_ascii) {
 	}
 
 	free(new_fname);
+	freeColorImage(color_file);
 }
 
 void convertPPMToPGM(char* fname) {
