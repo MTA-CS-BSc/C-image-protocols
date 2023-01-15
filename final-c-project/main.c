@@ -1,3 +1,5 @@
+// Maya Raskin, 209372325
+// Eyal Chaham, 208014019
 #include "Q12.h"
 
 void main() {
