@@ -80,9 +80,10 @@ void convertPGMToBWGeneric(char* fname, bool is_ascii) {
 			writeMatrixToFile(bw_fp, new_vals, rows, cols, is_ascii);
 			fclose(bw_fp);
 			free(k_file_name);
-			free(orig_f);
 			freeMat(new_vals, rows);
 		}
+
+		free(orig_f);
 	}
 }
 
