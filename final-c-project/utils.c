@@ -3,24 +3,31 @@
 char* readLineFromUser() {
 	char* str;
 	char ch;
-	int physical_size = 0, len = 0;
+	int physical_size = 1, len = 0;
 
 	str = (char*)malloc(sizeof(char));
 
 	if (!str)
-		memoryAllocFailed();
+		exit(1);
 
 	scanf(" %c", &ch);
 
 	while (ch != '\n' && ch != '\0') {
-		str = (char*)realloc(str, ++physical_size + 1);
+		if (physical_size == len) {
+			physical_size *= 2;
+			str = (char*)realloc(str, physical_size * sizeof(char));
 
-		if (!str)
-			memoryAllocFailed();
+			if (!str)
+				exit(1);
+		}
 
 		str[len++] = ch;
 		scanf("%c", &ch);
 	}
+	str = (char*)realloc(str, (len + 1) * sizeof(char));
+
+	if (!str)
+		exit(1);
 
 	str[len] = '\0';
 
