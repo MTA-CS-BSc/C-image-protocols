@@ -83,7 +83,7 @@ void convertPGMToBWGeneric(char* fname, bool is_ascii) {
 			freeMat(new_vals, rows);
 		}
 
-		free(orig_f);
+		fclose(orig_f);
 	}
 }
 
