@@ -2,7 +2,8 @@
 
 void convertPPMToPGMGeneric(char* fname, bool is_ascii) {
 	int rows, cols, depth;
-	char* new_fname = createPgmFileName(fname), gray_level;
+	char* new_fname = createPgmFileName(fname);
+	unsigned char gray_level;
 	FILE* ppm_fp = fopen(fname, is_ascii ? "r" : "rb");
 	FILE* pgm_fp = fopen(new_fname, is_ascii ? "w" : "wb");
 	COLOR_IMAGE* color_file = readPPMGeneric(fname, is_ascii);
@@ -39,6 +40,7 @@ void convertPPMToPGMGeneric(char* fname, bool is_ascii) {
 	}
 
 	free(new_fname);
+	freeColorImage(color_file);
 }
 
 void convertPPMToPGM(char* fname) {

@@ -219,3 +219,15 @@ void saveCompressedPGM(GRAY_IMAGE** p2_image) {
 		
 }
 
+void convertCompressedFileToPGM() {
+	char* file_name;
+
+	printf("Please enter a compressed file name:\n");
+	file_name = readLineFromUser();
+
+	convertCompressedToPGM(file_name);
+
+	printf("Completed!\n\n");
+
+	free(file_name);
+}

@@ -6,7 +6,6 @@ void main() {
 	GRAY_IMAGE* p2_with_same_gray_level = NULL;
 	IMG_POS_LIST* segments = NULL;
 	int segments_amount;
-	int threshold;
 	int desired_action = 0;
 
 	printMenu();
@@ -46,7 +45,7 @@ void main() {
 			saveCompressedPGM(&p2_image);
 			break;
 		case 7:
-			// Q7
+			convertCompressedFileToPGM();
 			break;
 		case 8:
 			convertP3ToP2();

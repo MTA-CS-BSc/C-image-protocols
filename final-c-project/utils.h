@@ -15,6 +15,7 @@
 
 // Macros
 #define ABS(a) ((a) < 0 ? -(a) : (a))
+#define MIN(a,b) (((a) < (b)) ? (a) : (b))
 
 typedef struct tnode TNODE;
 

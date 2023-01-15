@@ -45,6 +45,30 @@
     <ClCompile Include="Q10.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lists_utils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="matrices_utils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pic_files_utils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Q6.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Q7.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Q11.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Q12.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bits_utils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils.h">
@@ -72,6 +96,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Q10.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lists_utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matrices_utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pic_files_utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Q6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Q7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Q11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Q12.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bits_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
